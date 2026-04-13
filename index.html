@@ -1,0 +1,3800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sikandar Ali | 3D Galaxy Portfolio</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Orbitron:wght@400;700;900&family=Raleway:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="assets/favicon/favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    
+</head>
+<body data-theme="dark">
+
+    <!-- loading page -->
+    <!-- Add this right after the opening <body> tag -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-container">
+            <div class="terminal-header">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <div class="terminal-title">portfolio.sikandar-ali</div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="prompt">~/workspace</span>
+                    <span class="command">$ git init && git add .</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">Initialized empty Git repository in /workspace/.git/</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">~/workspace</span>
+                    <span class="command">$ git commit -m "chore: bootstrap"</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">[main (root-commit) abc1234] chore: bootstrap</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">~/workspace</span>
+                    <span class="command">$ pnpm i && pnpm dev</span>
+                </div>
+                <div class="terminal-line compiling">
+                    <span class="output">^compiling...</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">0 types ok · / lint ok · / built in 1.23s</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">localhost:5173 — ready</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">const app = @init(@skills) => {</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">    deploy(s) => {</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">        0</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">    }</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">}</span>
+                </div>
+                <div class="terminal-line">
+                    <span class="output">#</span>
+                </div>
+                <div class="terminal-line blink">
+                    <span class="prompt">~/workspace</span>
+                    <span class="cursor">█</span>
+                </div>
+            </div>
+            <div class="loading-progress">
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+                <div class="progress-text">Loading Universe...</div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- 3D Galaxy Container -->
+    <div id="galaxy-3d"></div>
+    
+    <!-- Starfield Background -->
+    <canvas id="starfield"></canvas>
+    
+    <!-- Nebula Overlay -->
+    <div class="nebula-overlay"></div>
+    
+    <!-- Day Sky Overlay -->
+    <div class="day-sky-overlay"></div>
+    
+    <!-- Navigation -->
+    <nav class="cosmic-nav">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="hologram-logo">
+                    <div class="hologram-line"></div>
+                    <span class="logo-text">Sikandar</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link cosmic-link">
+                    <span class="link-text">Home</span>
+                    <div class="link-trail"></div>
+                </a>
+                <a href="#about" class="nav-link cosmic-link">
+                    <span class="link-text">About</span>
+                    <div class="link-trail"></div>
+                </a>
+                <a href="#skills" class="nav-link cosmic-link">
+                    <span class="link-text">Skills</span>
+                    <div class="link-trail"></div>
+                </a>
+                <a href="#education" class="nav-link cosmic-link">
+                    <span class="link-text">Education</span>
+                    <div class="link-trail"></div>
+                </a>
+                <a href="#projects" class="nav-link cosmic-link">
+                    <span class="link-text">Projects</span>
+                    <div class="link-trail"></div>
+                </a>
+                <a href="#contact" class="nav-link cosmic-link">
+                    <span class="link-text">Contact</span>
+                    <div class="link-trail"></div>
+                </a>
+            </div>
+            <div class="nav-actions">
+                <a href="https://drive.google.com/file/d/11DEW--pIPSPcLoOT--VKTiF5KyzY0nRF/view?usp=sharing" 
+                   target="_blank" 
+                   class="btn cosmic-btn-secondary resume-btn">
+                    <i class="fas fa-file-download"></i>
+                    <span>Resume</span>
+                </a>
+                <button class="theme-toggle cosmic-btn" id="themeToggle">
+                    <i class="fas fa-moon"></i>
+                    <span class="btn-glow"></span>
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <!-- Add these to your nav-links section -->
+                <a href="#leetcode" class="nav-link cosmic-link">
+                    <span class="link-text">LeetCode</span>
+                    <div class="link-trail"></div>
+                </a>
+                <a href="#github" class="nav-link cosmic-link">
+                    <span class="link-text">GitHub</span>
+                    <div class="link-trail"></div>
+                </a>
+
+                <!-- Also add to mobile menu -->
+                <!-- <a href="#leetcode" class="mobile-nav-link">LeetCode</a>
+                <a href="#github" class="mobile-nav-link">GitHub</a> -->
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#home" class="mobile-nav-link">Home</a>
+            <a href="#about" class="mobile-nav-link">About</a>
+            <a href="#skills" class="mobile-nav-link">Skills</a>
+            <a href="#education" class="mobile-nav-link">Education</a>
+            <a href="#projects" class="mobile-nav-link">Projects</a>
+            <a href="#contact" class="mobile-nav-link">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+       
+        <!-- Hero Section -->
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <!-- Nebula Background -->
+            <div class="nebula-background">
+                <div class="nebula nebula-1"></div>
+                <div class="nebula nebula-2"></div>
+                <div class="nebula nebula-3"></div>
+            </div>
+            
+            <!-- Binary Rain Background -->
+            <div class="binary-rain"></div>
+            
+            <!-- Floating Planets -->
+            <div class="floating-planets">
+                <div class="planet planet-1" data-name="React"></div>
+                <div class="planet planet-2" data-name="Node.js"></div>
+                <div class="planet planet-3" data-name="MongoDB"></div>
+                <div class="planet planet-4" data-name="Express"></div>
+                <div class="planet planet-5" data-name="Three.js"></div>
+                <div class="planet planet-6" data-name="GSAP"></div>
+            </div>
+            
+            <!-- Particle Container -->
+            <div class="particle-container" id="particleContainer"></div>
+            
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <span class="badge-text">🚀 Welcome to My Digital Universe</span>
+                            <div class="badge-pulse"></div>
+                            <div class="badge-trail"></div>
+                        </div>
+                        
+                        <h1 class="hero-title">
+                            <span class="title-line glow-text">Hello, I'm</span>
+                            <span class="title-name nebula-gradient" data-text="SIKANDAR ALI">SIKANDAR ALI</span>
+                            <div class="title-sparkle"></div>
+                            <span class="title-role typing-animation">
+                                <span class="typing-wrapper">
+                                    <span class="typing-text">Full Stack Developer | AI/ML Engineer</span>
+                                    <span class="typing-cursor"></span>
+                                </span>
+                            </span>
+                        </h1>
+                        
+                        <p class="hero-description">
+                            <span class="description-highlight">B.Tech Computer Science</span> student passionate about crafting 
+                            <span class="description-glow">immersive digital experiences</span> and exploring 
+                            <span class="description-glow">cutting-edge technologies</span>. Transforming ideas into reality through code.
+                        </p>
+                        
+                        <!-- Animated Stats -->
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <div class="stat-details">
+                                    <div class="stat-number" data-count="5">0</div>
+                                    <div class="stat-label">Projects Built</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <div class="stat-details">
+                                    <div class="stat-number" data-count="92.2">0</div>
+                                    <div class="stat-label">10th Grade %</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="stat-details">
+                                    <div class="stat-number" data-count="85">0</div>
+                                    <div class="stat-label">12th Grade %</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="stat-details">
+                                    <div class="stat-number" data-count="7.01">0</div>
+                                    <div class="stat-label">Current CGPA</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Action Buttons -->
+                        <div class="hero-buttons">
+                            <a href="#projects" class="btn cosmic-btn-primary launch-btn">
+                                <div class="btn-content">
+                                    <i class="fas fa-rocket"></i>
+                                    <span>Explore Projects</span>
+                                </div>
+                                <div class="btn-glow"></div>
+                                <div class="btn-trail"></div>
+                            </a>
+                            <a href="#contact" class="btn cosmic-btn-secondary contact-btn">
+                                <div class="btn-content">
+                                    <i class="fas fa-comment-dots"></i>
+                                    <span>Contact Me</span>
+                                </div>
+                                <div class="btn-sparkles">
+                                    <div class="sparkle"></div>
+                                    <div class="sparkle"></div>
+                                    <div class="sparkle"></div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Tech Stack -->
+                        <!-- Tech Stack -->
+<div class="tech-stack">
+    <div class="stack-label">Tech I Work With:</div>
+
+    <div class="stack-tags">
+
+        <!-- 🔹 Frontend -->
+        <span class="tech-tag" data-tech="HTML5">
+            <i class="fab fa-html5"></i>
+            <span>HTML5</span>
+        </span>
+
+        <span class="tech-tag" data-tech="CSS3">
+            <i class="fab fa-css3-alt"></i>
+            <span>CSS3</span>
+        </span>
+
+        <span class="tech-tag" data-tech="JavaScript">
+            <i class="fab fa-js"></i>
+            <span>JavaScript</span>
+        </span>
+
+        <span class="tech-tag" data-tech="React">
+            <i class="fab fa-react"></i>
+            <span>React</span>
+        </span>
+
+        <span class="tech-tag" data-tech="Streamlit">
+            <i class="fas fa-chart-line"></i>
+            <span>Streamlit</span>
+        </span>
+
+        <!-- 🔹 Backend -->
+        <span class="tech-tag" data-tech="Node.js">
+            <i class="fab fa-node-js"></i>
+            <span>Node.js</span>
+        </span>
+
+        <span class="tech-tag" data-tech="FastAPI">
+            <i class="fas fa-bolt"></i>
+            <span>FastAPI</span>
+        </span>
+
+        <span class="tech-tag" data-tech="REST API">
+            <i class="fas fa-plug"></i>
+            <span>REST API</span>
+        </span>
+
+        <!-- 🔹 Programming -->
+        <span class="tech-tag" data-tech="Python">
+            <i class="fab fa-python"></i>
+            <span>Python</span>
+        </span>
+
+        <span class="tech-tag" data-tech="C++">
+            <i class="fas fa-code"></i>
+            <span>C++</span>
+        </span>
+
+        <!-- 🔹 AI / ML -->
+        <span class="tech-tag" data-tech="Machine Learning">
+            <i class="fas fa-brain"></i>
+            <span>Machine Learning</span>
+        </span>
+
+        <span class="tech-tag" data-tech="Deep Learning">
+            <i class="fas fa-network-wired"></i>
+            <span>Deep Learning</span>
+        </span>
+
+        <span class="tech-tag" data-tech="Transformers">
+            <i class="fas fa-project-diagram"></i>
+            <span>Transformers</span>
+        </span>
+
+        <span class="tech-tag" data-tech="NLP">
+            <i class="fas fa-language"></i>
+            <span>NLP</span>
+        </span>
+
+        <span class="tech-tag" data-tech="LLMs">
+            <i class="fas fa-robot"></i>
+            <span>LLMs</span>
+        </span>
+
+        <span class="tech-tag" data-tech="Prompt Engineering">
+            <i class="fas fa-magic"></i>
+            <span>Prompt Engineering</span>
+        </span>
+
+        <!-- 🔹 Libraries -->
+        <span class="tech-tag" data-tech="Scikit-learn">
+            <i class="fas fa-cogs"></i>
+            <span>Scikit-learn</span>
+        </span>
+
+        <span class="tech-tag" data-tech="Pandas">
+            <i class="fas fa-table"></i>
+            <span>Pandas</span>
+        </span>
+
+        <span class="tech-tag" data-tech="NumPy">
+            <i class="fas fa-calculator"></i>
+            <span>NumPy</span>
+        </span>
+
+        <!-- 🔹 Database -->
+        <span class="tech-tag" data-tech="MongoDB">
+            <i class="fas fa-database"></i>
+            <span>MongoDB</span>
+        </span>
+
+        <span class="tech-tag" data-tech="SQL">
+            <i class="fas fa-database"></i>
+            <span>SQL</span>
+        </span>
+
+        <!-- 🔹 Tools -->
+        <span class="tech-tag" data-tech="Git">
+            <i class="fab fa-git-alt"></i>
+            <span>Git</span>
+        </span>
+
+    </div>
+</div>
+                        <!-- Social Links -->
+                        <div class="hero-social">
+                            <a href="mailto:sikandarali3572@gmail.com" class="social-icon" title="Email">
+                                <i class="fas fa-envelope"></i>
+                                <div class="icon-orbit"></div>
+                                <div class="icon-glow"></div>
+                            </a>
+                            <a href="https://github.com/SIKANDAR063" target="_blank" class="social-icon" title="GitHub">
+                                <i class="fab fa-github"></i>
+                                <div class="icon-orbit"></div>
+                                <div class="icon-glow"></div>
+                            </a>
+                            <a href="https://linkedin.com/in/sikandar-ali-05a217272" target="_blank" class="social-icon" title="LinkedIn">
+                                <i class="fab fa-linkedin"></i>
+                                <div class="icon-orbit"></div>
+                                <div class="icon-glow"></div>
+                            </a>
+                            <a href="https://drive.google.com/file/d/11DEW--pIPSPcLoOT--VKTiF5KyzY0nRF/view" target="_blank" class="social-icon" title="Resume">
+                                <i class="fas fa-file-alt"></i>
+                                <div class="icon-orbit"></div>
+                                <div class="icon-glow"></div>
+                            </a>
+                            <a href="tel:+917717768639" class="social-icon" title="Call">
+                                <i class="fas fa-phone"></i>
+                                <div class="icon-orbit"></div>
+                                <div class="icon-glow"></div>
+                            </a>
+                        </div>
+                        
+                        <!-- Scroll Indicator -->
+                        <div class="scroll-indicator">
+                            <div class="scroll-text">Scroll to Explore</div>
+                            <div class="scroll-arrow">
+                                <div class="arrow-line"></div>
+                                <div class="arrow-head"></div>
+                            </div>
+                            <div class="scroll-pulse"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual">
+                        <!-- 3D Holographic Laptop -->
+                        <div class="holographic-laptop">
+                            <div class="laptop-container">
+                                <div class="laptop-base-3d">
+                                    <div class="laptop-screen-3d">
+                                        <!-- Screen Glow Effects -->
+                                        <div class="screen-aura"></div>
+                                        <div class="screen-radial-glow"></div>
+                                        
+                                        <!-- Holographic Display -->
+                                        <div class="holographic-display">
+                                            <div class="hologram-container">
+                                                <!-- Profile Hologram -->
+                                                <div class="profile-hologram">
+                                                    <div class="hologram-frame">
+                                                        <img src="assets/images/profile.jpeg" 
+                                                            alt="Sikandar Ali" 
+                                                            class="hologram-image"
+                                                            onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><rect width=\"100\" height=\"100\" fill=\"%230a0a0f\"/><text x=\"50\" y=\"50\" font-family=\"Arial\" font-size=\"12\" fill=\"%234cc9f0\" text-anchor=\"middle\" dominant-baseline=\"central\">SA</text></svg>';">
+                                                        <div class="hologram-scan"></div>
+                                                        <div class="hologram-grid">
+                                                            <div class="grid-line vertical"></div>
+                                                            <div class="grid-line horizontal"></div>
+                                                            <div class="grid-line diagonal-1"></div>
+                                                            <div class="grid-line diagonal-2"></div>
+                                                        </div>
+                                                        <div class="hologram-particles">
+                                                            <div class="particle p1"></div>
+                                                            <div class="particle p2"></div>
+                                                            <div class="particle p3"></div>
+                                                            <div class="particle p4"></div>
+                                                            <div class="particle p5"></div>
+                                                        </div>
+                                                        <div class="hologram-glow"></div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Floating Code -->
+                                                <div class="floating-code">
+                                                    <div class="code-line"><span class="code-keyword">const</span> <span class="code-var">developer</span> = <span class="code-string">"Sikandar Ali"</span>;</div>
+                                                    <div class="code-line"><span class="code-keyword">let</span> <span class="code-var">skills</span> = [<span class="code-string">"Full Stack"</span>, <span class="code-string">"ML"</span>, <span class="code-string">"3D Web"</span>];</div>
+                                                    <div class="code-line"><span class="code-function">createAmazing</span>(<span class="code-var">projects</span>);</div>
+                                                </div>
+                                                
+                                                <!-- Data Rings -->
+                                                <div class="data-rings">
+                                                    <div class="ring ring-1"></div>
+                                                    <div class="ring ring-2"></div>
+                                                    <div class="ring ring-3"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Screen Elements -->
+                                        <div class="screen-elements">
+                                            <div class="terminal-cursor"></div>
+                                            <div class="pixel-dust"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Keyboard -->
+                                    <div class="keyboard-3d">
+                                        <div class="keyboard-surface"></div>
+                                        <div class="keycap keycap-1"></div>
+                                        <div class="keycap keycap-2"></div>
+                                        <div class="keycap keycap-3"></div>
+                                        <div class="keyboard-glow"></div>
+                                    </div>
+                                    
+                                    <!-- Laptop Base -->
+                                    <div class="laptop-bottom"></div>
+                                </div>
+                                
+                                <!-- Laptop Stand -->
+                                <div class="laptop-stand">
+                                    <div class="stand-base"></div>
+                                    <div class="stand-arm"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Connection Beams -->
+                            <div class="connection-beams">
+                                <div class="beam beam-1"></div>
+                                <div class="beam beam-2"></div>
+                                <div class="beam beam-3"></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Technology Network -->
+                        <div class="tech-network">
+                            <!-- Orbiting Tech Icons -->
+                            <div class="orbiting-tech">
+                                <div class="tech-node" data-tech="HTML5">
+                                    <i class="fab fa-html5"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="CSS3">
+                                    <i class="fab fa-css3-alt"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="JavaScript">
+                                    <i class="fab fa-js"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="Python">
+                                    <i class="fab fa-python"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="React">
+                                    <i class="fab fa-react"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="Node.js">
+                                    <i class="fab fa-node-js"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="Git">
+                                    <i class="fab fa-git-alt"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="Database">
+                                    <i class="fas fa-database"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="API">
+                                    <i class="fas fa-network-wired"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="Three.js">
+                                    <i class="fas fa-cube"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="ML">
+                                    <i class="fas fa-brain"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                                <div class="tech-node" data-tech="UI/UX">
+                                    <i class="fas fa-paint-brush"></i>
+                                    <div class="node-glow"></div>
+                                    <div class="node-trail"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Connection Lines -->
+                            <div class="connection-lines"></div>
+                        </div>
+                        
+                        <!-- Cosmic Phenomena -->
+                        <div class="cosmic-phenomena">
+                            <!-- Shooting Stars -->
+                            <div class="shooting-stars">
+                                <div class="shooting-star ss-1"></div>
+                                <div class="shooting-star ss-2"></div>
+                                <div class="shooting-star ss-3"></div>
+                                <div class="shooting-star ss-4"></div>
+                                <div class="shooting-star ss-5"></div>
+                                <div class="shooting-star ss-6"></div>
+                            </div>
+                            
+                            <!-- Meteor Shower -->
+                            <div class="meteor-shower">
+                                <div class="meteor m-1"></div>
+                                <div class="meteor m-2"></div>
+                                <div class="meteor m-3"></div>
+                            </div>
+                            
+                            <!-- Space Dust -->
+                            <div class="space-dust">
+                                <div class="dust-particle dp-1"></div>
+                                <div class="dust-particle dp-2"></div>
+                                <div class="dust-particle dp-3"></div>
+                                <div class="dust-particle dp-4"></div>
+                                <div class="dust-particle dp-5"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Animated Background Elements -->
+                <div class="background-elements">
+                    <div class="floating-element fe-1">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="floating-element fe-2">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="floating-element fe-3">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="floating-element fe-4">
+                        <i class="fas fa-server"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <!-- About Section -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-user-astronaut"></i>
+                        <div class="astronaut-helmet"></div>
+                    </div>
+                    <h2 class="section-title">About Me</h2>
+                    <div class="section-subtitle">My Digital Journey Through the Cosmos</div>
+                </div>
+                
+                <!-- Interactive 3D Orbit -->
+                <div class="about-orbit">
+                    <div class="orbit-ring"></div>
+                    <div class="orbit-dot dot-1" data-tooltip="Education"></div>
+                    <div class="orbit-dot dot-2" data-tooltip="Skills"></div>
+                    <div class="orbit-dot dot-3" data-tooltip="Projects"></div>
+                    <div class="orbit-dot dot-4" data-tooltip="Experience"></div>
+                    <div class="orbit-center">
+                        <div class="pulsar-core"></div>
+                    </div>
+                </div>
+                
+                <div class="about-content">
+                    <!-- Personal Introduction -->
+                    <div class="intro-card cosmic-card">
+                        <div class="intro-header">
+                            <div class="intro-avatar">
+                                <img src="assets/images/profile.jpeg" 
+                                    alt="Sikandar Ali" 
+                                    class="intro-image"
+                                    onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/avatars/svg?seed=SIKANDAR&backgroundType=gradientLinear&backgroundColor=b6e3f4,c0aede,d1d4f9';">
+                                <div class="avatar-halo"></div>
+                                <div class="avatar-grid"></div>
+                            </div>
+                            <div class="intro-bio">
+                                <h3 class="intro-name">Sikandar Ali</h3>
+                                <p class="intro-title">Developer & ML Enthusiast</p>
+                                <div class="intro-location">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span>Kanpur, Uttar Pradesh, India</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="intro-text">
+                            <p>🚀 <strong>Mission Statement:</strong> To architect digital experiences that bridge the gap between imagination and reality through code.</p>
+                            <p>🎯 <strong>Philosophy:</strong> Every line of code is a step towards innovation. I believe in creating solutions that are not just functional, but also elegant, efficient, and user-centric.</p>
+                            <p>✨ <strong>Journey:</strong> From writing my first "Hello World" to building complex web applications and ML models, my journey has been a continuous exploration of the digital universe.</p>
+                        </div>
+                        <div class="intro-stats">
+                            <div class="stat-bubble">
+                                <div class="stat-number">$+</div>
+                                <div class="stat-label">Years Learning</div>
+                            </div>
+                            <div class="stat-bubble">
+                                <div class="stat-number">5+</div>
+                                <div class="stat-label">Projects Built</div>
+                            </div>
+                            <div class="stat-bubble">
+                                <div class="stat-number">∞</div>
+                                <div class="stat-label">Passion Level</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Education Timeline -->
+                    <div class="education-timeline cosmic-card">
+                        <div class="timeline-header">
+                            <div class="card-icon">
+                                <i class="fas fa-graduation-cap"></i>
+                                <div class="icon-glow"></div>
+                            </div>
+                            <h3 class="card-title">Educational Journey</h3>
+                            <p class="card-subtitle">My Path Through Academia</p>
+                        </div>
+                        
+                        <div class="timeline">
+                            <div class="timeline-track">
+                                <div class="track-glow"></div>
+                                <div class="track-pulse"></div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker">
+                                    <div class="marker-glow"></div>
+                                    <div class="marker-year">2018</div>
+                                    <div class="marker-badge">
+                                        <i class="fas fa-medal"></i>
+                                    </div>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="content-header">
+                                        <h4 class="timeline-title">Secondary School</h4>
+                                        <div class="timeline-grade">92.2%</div>
+                                    </div>
+                                    <h5 class="timeline-subtitle">D K Carmel Residential High School, Ara</h5>
+                                    <p class="timeline-description">
+                                        <i class="fas fa-star"></i> Achieved outstanding academic performance
+                                        <br>
+                                        <i class="fas fa-lightbulb"></i> Developed strong foundation in mathematics & science
+                                        <br>
+                                        <i class="fas fa-trophy"></i> Participated in science exhibitions & competitions
+                                    </p>
+                                    <div class="timeline-tags">
+                                        <span class="tag">Science Stream</span>
+                                        <span class="tag">Academic Excellence</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-connection"></div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker">
+                                    <div class="marker-glow"></div>
+                                    <div class="marker-year">2020</div>
+                                    <div class="marker-badge">
+                                        <i class="fas fa-award"></i>
+                                    </div>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="content-header">
+                                        <h4 class="timeline-title">Higher Secondary</h4>
+                                        <div class="timeline-grade">85%</div>
+                                    </div>
+                                    <h5 class="timeline-subtitle">STSV International School, Ara</h5>
+                                    <p class="timeline-description">
+                                        <i class="fas fa-code"></i> Discovered passion for computer science
+                                        <br>
+                                        <i class="fas fa-brain"></i> Developed problem-solving skills
+                                        <br>
+                                        <i class="fas fa-project-diagram"></i> Started exploring programming concepts
+                                    </p>
+                                    <div class="timeline-tags">
+                                        <span class="tag">PCM Stream</span>
+                                        <span class="tag">Programming Foundation</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-connection"></div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-marker">
+                                    <div class="marker-glow"></div>
+                                    <div class="marker-year">2022-2026</div>
+                                    <div class="marker-badge">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                </div>
+                                <div class="timeline-content">
+                                    <div class="content-header">
+                                        <h4 class="timeline-title">B.Tech Computer Science</h4>
+                                        <div class="timeline-grade">CGPA: 7.01</div>
+                                    </div>
+                                    <h5 class="timeline-subtitle">Harcourt Butler Technical University, Kanpur</h5>
+                                    <p class="timeline-description">
+                                        <i class="fas fa-laptop-code"></i> Currently pursuing specialized computer science education
+                                        <br>
+                                        <i class="fas fa-network-wired"></i> Mastering algorithms, data structures, and ML concepts
+                                        <br>
+                                        <i class="fas fa-bullseye"></i> Working on real-world projects and building portfolio
+                                    </p>
+                                    <div class="timeline-tags">
+                                        <span class="tag">Active Student</span>
+                                        <span class="tag">Project Development</span>
+                                        <span class="tag">Skill Enhancement</span>
+                                    </div>
+                                </div>
+                                <div class="timeline-connection"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="education-stats">
+                            <div class="edu-stat">
+                                <div class="edu-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="edu-details">
+                                    <div class="edu-value">92.2%</div>
+                                    <div class="edu-label">10th Grade Score</div>
+                                </div>
+                            </div>
+                            <div class="edu-stat">
+                                <div class="edu-icon">
+                                    <i class="fas fa-chart-bar"></i>
+                                </div>
+                                <div class="edu-details">
+                                    <div class="edu-value">85%</div>
+                                    <div class="edu-label">12th Grade Score</div>
+                                </div>
+                            </div>
+                            <div class="edu-stat">
+                                <div class="edu-icon">
+                                    <i class="fas fa-chart-pie"></i>
+                                </div>
+                                <div class="edu-details">
+                                    <div class="edu-value">7.01</div>
+                                    <div class="edu-label">Current CGPA</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Coursework & Skills -->
+                    <div class="coursework-section">
+                        <div class="coursework-card cosmic-card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-brain"></i>
+                                    <div class="icon-glow"></div>
+                                </div>
+                                <div class="card-titles">
+                                    <h3 class="card-title">Academic Coursework</h3>
+                                    <p class="card-subtitle">Knowledge Universe</p>
+                                </div>
+                            </div>
+                            
+                            <div class="knowledge-sphere">
+                                <div class="sphere-container">
+                                    <div class="sphere-core">
+                                        <div class="core-glow"></div>
+                                        <span>CS</span>
+                                    </div>
+                                    <div class="sphere-orbit orbit-1">
+                                        <div class="orbiting-tag" data-course="Data Structures">
+                                            <i class="fas fa-sitemap"></i>
+                                        </div>
+                                        <div class="orbiting-tag" data-course="Algorithms">
+                                            <i class="fas fa-code"></i>
+                                        </div>
+                                    </div>
+                                    <div class="sphere-orbit orbit-2">
+                                        <div class="orbiting-tag" data-course="Machine Learning">
+                                            <i class="fas fa-robot"></i>
+                                        </div>
+                                        <div class="orbiting-tag" data-course="DBMS">
+                                            <i class="fas fa-database"></i>
+                                        </div>
+                                    </div>
+                                    <div class="sphere-orbit orbit-3">
+                                        <div class="orbiting-tag" data-course="Operating Systems">
+                                            <i class="fas fa-desktop"></i>
+                                        </div>
+                                        <div class="orbiting-tag" data-course="OOPS">
+                                            <i class="fas fa-cube"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="coursework-tags">
+                                <div class="tag-category">
+                                    <h4 class="category-title">Core Computer Science</h4>
+                                    <div class="tags-grid">
+                                        <span class="course-tag glow-tag">
+                                            <i class="fas fa-sitemap"></i>
+                                            Data Structures
+                                        </span>
+                                        <span class="course-tag glow-tag">
+                                            <i class="fas fa-sitemap"></i>
+                                            Computer Network
+                                        </span>
+                                        <span class="course-tag glow-tag">
+                                            <i class="fas fa-code"></i>
+                                            C++ Algorithms
+                                        </span>
+                                        <span class="course-tag glow-tag">
+                                            <i class="fas fa-desktop"></i>
+                                            Operating Systems
+                                        </span>
+                                        <span class="course-tag glow-tag">
+                                            <i class="fas fa-database"></i>
+                                            Database Management
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="tag-category">
+                                    <h4 class="category-title">Advanced Topics</h4>
+                                    <div class="tags-grid">
+                                        <span class="course-tag glow-tag">
+                                            <i class="fas fa-robot"></i>
+                                            Machine Learning
+                                        </span>
+                                        <span class="course-tag glow-tag">
+                                            <i class="fas fa-cube"></i>
+                                            OOPS Concepts
+                                        </span>
+                                        <span class="course-tag glow-tag">
+                                            <i class="fas fa-network-wired"></i>
+                                            Deep learning
+                                        </span>
+                                        <span class="course-tag glow-tag">
+                                            <i class="fas fa-shield-alt"></i>
+                                            LLM , Transformers , NLP
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="aspiration-card cosmic-card">
+                            <div class="card-header">
+                                <div class="card-icon">
+                                    <i class="fas fa-bullseye"></i>
+                                    <div class="icon-glow"></div>
+                                </div>
+                                <div class="card-titles">
+                                    <h3 class="card-title">Career Aspirations</h3>
+                                    <p class="card-subtitle">My Mission in the Digital Cosmos</p>
+                                </div>
+                            </div>
+                            
+                            <div class="aspiration-content">
+                                <div class="mission-statement">
+                                    <div class="mission-icon">
+                                        <i class="fas fa-rocket"></i>
+                                    </div>
+                                    <div class="mission-text">
+                                        <h4>Primary Mission</h4>
+                                        <p>To evolve into a Full-Stack Developer who creates immersive, efficient, and scalable web applications while exploring the frontiers of Machine Learning and AI.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="aspiration-goals">
+                                    <div class="goal">
+                                        <div class="goal-icon short-term">
+                                            <i class="fas fa-hourglass-start"></i>
+                                        </div>
+                                        <div class="goal-content">
+                                            <h5>Short-term Goals</h5>
+                                            <ul>
+                                                <li>Master advanced React and Node.js concepts</li>
+                                                <li>Build 5+ full-stack projects with modern tech stack</li>
+                                                <li>Contribute to open-source projects</li>
+                                                <li>Secure internship in web development</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="goal">
+                                        <div class="goal-icon long-term">
+                                            <i class="fas fa-hourglass-end"></i>
+                                        </div>
+                                        <div class="goal-content">
+                                            <h5>Long-term Vision</h5>
+                                            <ul>
+                                                <li>Become a Senior Full-Stack Developer</li>
+                                                <li>Specialize in AI/ML integration with web apps</li>
+                                                <li>Mentor aspiring developers</li>
+                                                <li>Build impactful tech products</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="status-indicator">
+                                    <div class="status-content">
+                                        <div class="status-icon">
+                                            <i class="fas fa-satellite"></i>
+                                        </div>
+                                        <div class="status-details">
+                                            <h5>Current Status</h5>
+                                            <p>Active Learner • Project Developer • Opportunity Seeker</p>
+                                        </div>
+                                    </div>
+                                    <div class="status-badge">
+                                        <div class="status-dot active"></div>
+                                        <span class="status-text">Open to Opportunities</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="aspiration-quote">
+                                <i class="fas fa-quote-left"></i>
+                                <p>"The only way to do great work is to love what you do. Every project is a universe waiting to be explored."</p>
+                                <div class="quote-author">— My Coding Philosophy</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Skills & Interests -->
+                    <div class="interests-card cosmic-card">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="fas fa-heart"></i>
+                                <div class="icon-glow"></div>
+                            </div>
+                            <div class="card-titles">
+                                <h3 class="card-title">Interests & Passions</h3>
+                                <p class="card-subtitle">Beyond the Code</p>
+                            </div>
+                        </div>
+                        
+                        <div class="interests-grid">
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-gamepad"></i>
+                                </div>
+                                <div class="interest-content">
+                                    <h4>Game Development</h4>
+                                    <p>Creating interactive experiences and understanding game mechanics</p>
+                                </div>
+                            </div>
+                            
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <div class="interest-content">
+                                    <h4>Data Visualization</h4>
+                                    <p>Transforming complex data into beautiful, interactive visual stories</p>
+                                </div>
+                            </div>
+                            
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <div class="interest-content">
+                                    <h4>AI Exploration</h4>
+                                    <p>Experimenting with machine learning models and AI applications</p>
+                                </div>
+                            </div>
+                            
+                            <div class="interest-item">
+                                <div class="interest-icon">
+                                    <i class="fas fa-paint-brush"></i>
+                                </div>
+                                <div class="interest-content">
+                                    <h4>UI/UX Design</h4>
+                                    <p>Crafting beautiful and intuitive user interfaces</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section with Glittery Effect -->
+        
+        <section id="skills" class="skills-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="section-subtitle">My Digital Toolbox</div>
+        </div>
+        
+        <!-- Glitter Particles Container -->
+        <div class="glitter-container" id="glitterContainer"></div>
+        
+        <div class="skills-categories">
+            <div class="category-card glitter-card">
+                <h3 class="category-title">
+                    <i class="fab fa-html5"></i>
+                    Languages
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Python</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">C++</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">JavaScript/TypeScript</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card glitter-card">
+                <h3 class="category-title">
+                    <i class="fas fa-code"></i>
+                    Frontend
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">HTML/CSS</span>
+                            <span class="skill-level">Expert</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="95">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">React.js</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Tailwind/Bootstrap</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card glitter-card">
+                <h3 class="category-title">
+                    <i class="fas fa-server"></i>
+                    Backend & Tools
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Node.js/Express</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">FastAPI/Flask</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Git & GitHub</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-card glitter-card">
+                <h3 class="category-title">
+                    <i class="fas fa-database"></i>
+                    Databases
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">MySQL</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">MongoDB</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">PostgreSQL</span>
+                            <span class="skill-level">Beginner</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="60">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW: AI & Machine Learning Category -->
+            <div class="category-card glitter-card">
+                <h3 class="category-title">
+                    <i class="fas fa-robot"></i>
+                    AI & Machine Learning
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Scikit-learn</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Pandas & NumPy</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Matplotlib/Seaborn</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Feature Engineering</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW: Deep Learning Category -->
+            <div class="category-card glitter-card">
+                <h3 class="category-title">
+                    <i class="fas fa-brain"></i>
+                    Deep Learning
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">TensorFlow/Keras</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">PyTorch</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="65">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Neural Networks</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">CNN/RNN/LSTM</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW: NLP & Transformers Category -->
+            <div class="category-card glitter-card">
+                <h3 class="category-title">
+                    <i class="fas fa-language"></i>
+                    NLP & Transformers
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">NLTK & spaCy</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="80">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Hugging Face</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="75">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Transformers (BERT/GPT)</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Text Preprocessing</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="88">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW: LLMs & Generative AI Category -->
+            <div class="category-card glitter-card">
+                <h3 class="category-title">
+                    <i class="fas fa-magic"></i>
+                    LLMs & Generative AI
+                </h3>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">OpenAI API (GPT)</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="85">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">LangChain</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="70">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Prompt Engineering</span>
+                            <span class="skill-level">Advanced</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="90">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">RAG & Vector DBs</span>
+                            <span class="skill-level">Intermediate</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="65">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <span class="skill-name">Fine-tuning LLMs</span>
+                            <span class="skill-level">Beginner</span>
+                            <div class="skill-sparkle"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" data-width="55">
+                                <div class="progress-glow"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Skill Orbs -->
+        <div class="skill-orbs">
+            <div class="skill-orb" data-skill="VS Code">
+                <i class="fas fa-code"></i>
+            </div>
+            <div class="skill-orb" data-skill="Express.js">
+                <i class="fab fa-node-js"></i>
+            </div>
+            <div class="skill-orb" data-skill="API">
+                <i class="fas fa-network-wired"></i>
+            </div>
+            <div class="skill-orb" data-skill="TensorFlow">
+                <i class="fas fa-brain"></i>
+            </div>
+            <div class="skill-orb" data-skill="Hugging Face">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="skill-orb" data-skill="OpenAI">
+                <i class="fas fa-magic"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Additional styles for the new categories */
+    .skills-categories {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 1.8rem;
+        margin-top: 2rem;
+    }
+    
+    .category-card {
+        background: rgba(15, 15, 25, 0.7);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        padding: 1.5rem;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .category-card:hover {
+        border-color: rgba(168, 85, 247, 0.6);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(168, 85, 247, 0.1);
+    }
+    
+    .category-title {
+        font-size: 1.3rem;
+        margin-bottom: 1.2rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #e0e0ff;
+        border-bottom: 1px solid rgba(168, 85, 247, 0.3);
+        padding-bottom: 10px;
+    }
+    
+    .category-title i {
+        color: #a855f7;
+        font-size: 1.4rem;
+    }
+    
+    .skills-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .skill-item {
+        width: 100%;
+    }
+    
+    .skill-info {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 6px;
+        font-size: 0.9rem;
+    }
+    
+    .skill-name {
+        font-weight: 500;
+        color: #ccd6f6;
+    }
+    
+    .skill-level {
+        font-size: 0.75rem;
+        color: #a855f7;
+        background: rgba(168, 85, 247, 0.15);
+        padding: 2px 8px;
+        border-radius: 20px;
+    }
+    
+    .skill-bar {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    .skill-progress {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #3b82f6, #a855f7);
+        border-radius: 10px;
+        position: relative;
+        transition: width 1.2s ease-out;
+    }
+    
+    .progress-glow {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 30px;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+        border-radius: 10px;
+        animation: shimmer 2s infinite;
+    }
+    
+    @keyframes shimmer {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(200%); }
+    }
+    
+    .skill-sparkle {
+        display: inline-block;
+        width: 4px;
+        height: 4px;
+        background: #a855f7;
+        border-radius: 50%;
+        margin-left: 5px;
+        animation: sparkle 1.5s infinite;
+    }
+    
+    @keyframes sparkle {
+        0%, 100% { opacity: 0; transform: scale(0.5); }
+        50% { opacity: 1; transform: scale(1.2); }
+    }
+    
+    /* Skill Orbs */
+    .skill-orbs {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .skill-orb {
+        width: 60px;
+        height: 60px;
+        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(168, 85, 247, 0.2));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        color: #a855f7;
+        border: 1px solid rgba(168, 85, 247, 0.5);
+        transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+    }
+    
+    .skill-orb:hover {
+        transform: scale(1.15);
+        background: linear-gradient(135deg, #3b82f6, #a855f7);
+        color: white;
+        box-shadow: 0 0 20px rgba(168, 85, 247, 0.6);
+    }
+    
+    .skill-orb::after {
+        content: attr(data-skill);
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.7rem;
+        white-space: nowrap;
+        background: rgba(0, 0, 0, 0.8);
+        padding: 2px 8px;
+        border-radius: 12px;
+        opacity: 0;
+        transition: opacity 0.3s;
+        pointer-events: none;
+    }
+    
+    .skill-orb:hover::after {
+        opacity: 1;
+    }
+    
+    /* Glitter effect */
+    .glitter-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+    }
+    
+    .glitter-card {
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+        .skills-categories {
+            grid-template-columns: 1fr;
+        }
+        .skill-orbs {
+            gap: 1rem;
+        }
+        .skill-orb {
+            width: 50px;
+            height: 50px;
+            font-size: 1.3rem;
+        }
+    }
+</style>
+
+<script>
+    // Animate skill bars when they come into view
+    const animateSkills = () => {
+        const skillBars = document.querySelectorAll('.skill-progress');
+        skillBars.forEach(bar => {
+            const width = bar.getAttribute('data-width');
+            if (width) {
+                bar.style.width = width + '%';
+            }
+        });
+    };
+    
+    // Trigger animation on load and scroll
+    window.addEventListener('load', () => {
+        setTimeout(animateSkills, 500);
+    });
+    
+    // Intersection Observer for scroll-triggered animation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const bars = entry.target.querySelectorAll('.skill-progress');
+                bars.forEach(bar => {
+                    const width = bar.getAttribute('data-width');
+                    if (width && bar.style.width !== width + '%') {
+                        bar.style.width = width + '%';
+                    }
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    document.querySelectorAll('.category-card').forEach(card => {
+        observer.observe(card);
+    });
+    
+    // Glitter particles effect
+    const createGlitter = () => {
+        const container = document.getElementById('glitterContainer');
+        if (!container) return;
+        
+        for (let i = 0; i < 50; i++) {
+            const particle = document.createElement('div');
+            particle.style.position = 'absolute';
+            particle.style.width = Math.random() * 3 + 1 + 'px';
+            particle.style.height = particle.style.width;
+            particle.style.backgroundColor = `rgba(168, 85, 247, ${Math.random() * 0.5 + 0.2})`;
+            particle.style.borderRadius = '50%';
+            particle.style.top = Math.random() * 100 + '%';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.pointerEvents = 'none';
+            particle.style.animation = `sparkle ${Math.random() * 2 + 1}s infinite`;
+            container.appendChild(particle);
+        }
+    };
+    
+    window.addEventListener('load', createGlitter);
+</script>
+
+        <!-- LeetCode Section -->
+        <section id="leetcode" class="leetcode-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h2 class="section-title">LeetCode Profile</h2>
+                    <div class="section-subtitle">Coding Challenge Progress</div>
+                </div>
+                
+                <div class="leetcode-stats cosmic-card">
+                    <div class="leetcode-header">
+                        <div class="leetcode-badge">
+                            <i class="fas fa-fire"></i>
+                            <span>Daily Challenge Streak</span>
+                        </div>
+                        <a href="https://leetcode.com/u/Sikandar_Ali/" target="_blank" class="leetcode-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            View Profile
+                        </a>
+                    </div>
+                    
+                    <div class="leetcode-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Problems Solved</h3>
+                                <div class="stat-number">350+</div>
+                                <div class="stat-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 65%"></div>
+                                    </div>
+                                    <span class="progress-text">65% Easy</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Contest Rating</h3>
+                                <div class="stat-number">1600+</div>
+                                <div class="stat-progress">
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" style="width: 75%"></div>
+                                    </div>
+                                    <span class="progress-text">Top 25%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-trophy"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Badges Earned</h3>
+                                <div class="stat-number">0</div>
+                                <div class="badge-list">
+                                    <span class="badge">30 Days</span>
+                                    <span class="badge">100 Days</span>
+                                    <span class="badge">Algorithm Master</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="leetcode-skills">
+                        <h3>Problem Categories</h3>
+                        <div class="skills-list">
+                            <div class="skill-category">
+                                <span class="skill-name">Arrays & Hashing</span>
+                                <div class="skill-level">
+                                    <div class="level-dots">
+                                        <span class="dot active"></span>
+                                        <span class="dot active"></span>
+                                        <span class="dot active"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>
+                                    <span class="level-text">Intermediate</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <span class="skill-name">Linked Lists</span>
+                                <div class="skill-level">
+                                    <div class="level-dots">
+                                        <span class="dot active"></span>
+                                        <span class="dot active"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>
+                                    <span class="level-text">Beginner</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <span class="skill-name">Trees & Graphs</span>
+                                <div class="skill-level">
+                                    <div class="level-dots">
+                                        <span class="dot active"></span>
+                                        <span class="dot active"></span>
+                                        <span class="dot active"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>
+                                    <span class="level-text">Intermediate</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <span class="skill-name">Dynamic Programming</span>
+                                <div class="skill-level">
+                                    <div class="level-dots">
+                                        <span class="dot active"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                        <span class="dot"></span>
+                                    </div>
+                                    <span class="level-text">Learning</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- GitHub Section -->
+
+         <section id="github" class="github-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">
+                <i class="fab fa-github"></i>
+            </div>
+            <h2 class="section-title">GitHub Universe</h2>
+            <div class="section-subtitle">My Code Galaxy & Contributions</div>
+        </div>
+        
+        <div class="github-stats cosmic-card">
+
+            <!-- GitHub Profile -->
+            <div class="github-header">
+                <div class="github-user">
+                    <div class="github-avatar">
+                        <img src="assets/images/profile.jpeg" 
+                            alt="Sikandar Ali" 
+                            class="github-img"
+                            onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/avatars/svg?seed=SIKANDAR063';">
+                    </div>
+                    <div class="github-info">
+                        <h3>@SIKANDAR063</h3>
+                        <p>AI/ML Engineer | Full Stack Developer | GenAI Enthusiast</p>
+                        <div class="github-meta">
+                            <span class="meta-item">
+                                <i class="fas fa-code-branch"></i>
+                                <strong>25+</strong> Repositories
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-star"></i>
+                                <strong>35+</strong> Stars
+                            </span>
+                            <span class="meta-item">
+                                <i class="fas fa-users"></i>
+                                <strong>12+</strong> Followers
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="https://github.com/SIKANDAR063" target="_blank" class="btn cosmic-btn-primary github-link">
+                    <i class="fab fa-github"></i>
+                    <span>Explore My Galaxy</span>
+                    <div class="btn-glow"></div>
+                </a>
+            </div>
+            
+            <!-- Featured Repositories -->
+            <div class="github-featured">
+                <h3 class="featured-title">
+                    <i class="fas fa-rocket"></i>
+                    Featured Projects
+                </h3>
+
+                <div class="github-grid">
+
+                    <!-- Movie Recommendation System (ML + Web) -->
+                    <div class="repo-card">
+                        <div class="repo-header">
+                            <div class="repo-icon"><i class="fas fa-film"></i></div>
+                            <h4>Movie-Recommendation-System</h4>
+                            <span class="repo-lang">Python</span>
+                        </div>
+                        <p class="repo-desc">
+                            AI-powered movie recommendation system using NLP and similarity algorithms with Streamlit UI.
+                            Built RESTful APIs with FastAPI for scalable backend services.
+                            Deployed on Render (backend) and Streamlit Cloud (frontend).
+                        </p>
+                        <div class="repo-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">Streamlit</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                            <span class="tech-tag">NLP</span>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat"><i class="fas fa-star star-glow"></i> 15</span>
+                            <span class="stat"><i class="fas fa-code-branch"></i> 3</span>
+                            <span class="stat"><i class="fas fa-eye"></i> 200+</span>
+                        </div>
+                        <div class="repo-links">
+                            <a href="https://github.com/SIKANDAR063/movie-recommender-system" target="_blank" class="repo-link">
+                                <i class="fab fa-github"></i><span>Code</span>
+                            </a>
+                            <a href="https://movie-recommender-system-sikandar.streamlit.app/" target="_blank" class="repo-link">
+                                <i class="fas fa-external-link-alt"></i><span>Live Demo</span>
+                            </a>
+                        </div>
+                        <div class="repo-glow"></div>
+                    </div>
+
+                    <!-- Heart Disease Prediction System -->
+                    <div class="repo-card">
+                        <div class="repo-header">
+                            <div class="repo-icon"><i class="fas fa-heartbeat"></i></div>
+                            <h4>Heart-Disease-Prediction</h4>
+                            <span class="repo-lang">Python</span>
+                        </div>
+                        <p class="repo-desc">
+                            ML-based prediction system for heart disease using KNN classification models.
+                            Performed data preprocessing including encoding, scaling, and feature normalization.
+                            Built interactive Streamlit dashboard with real-time predictions.
+                        </p>
+                        <div class="repo-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                            <span class="tech-tag">KNN</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Streamlit</span>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat"><i class="fas fa-star star-glow"></i> 10</span>
+                            <span class="stat"><i class="fas fa-code-branch"></i> 2</span>
+                            <span class="stat"><i class="fas fa-eye"></i> 150+</span>
+                        </div>
+                        <div class="repo-links">
+                            <a href="https://github.com/SIKANDAR063/heart-disease" target="_blank" class="repo-link">
+                                <i class="fab fa-github"></i><span>Code</span>
+                            </a>
+                            <a href="https://heart-disease-zcm3xjajseopr9evsqz7up.streamlit.app/" target="_blank" class="repo-link">
+                                <i class="fas fa-external-link-alt"></i><span>Live Demo</span>
+                            </a>
+                        </div>
+                        <div class="repo-glow"></div>
+                    </div>
+
+                    <!-- Hotel Listing Web Application (Full Stack MERN) -->
+                    <div class="repo-card">
+                        <div class="repo-header">
+                            <div class="repo-icon"><i class="fas fa-hotel"></i></div>
+                            <h4>Hotel-Listing-MERN</h4>
+                            <span class="repo-lang">MERN</span>
+                        </div>
+                        <p class="repo-desc">
+                            Scalable full-stack MERN application handling dynamic hotel listings and user interactions.
+                            RESTful APIs with Node.js/Express.js supporting CRUD operations.
+                            MongoDB database schema for optimized storage. Responsive React UI.
+                        </p>
+                        <div class="repo-tech">
+                            <span class="tech-tag">MongoDB</span>
+                            <span class="tech-tag">Express.js</span>
+                            <span class="tech-tag">React.js</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat"><i class="fas fa-star star-glow"></i> 8</span>
+                            <span class="stat"><i class="fas fa-code-branch"></i> 4</span>
+                            <span class="stat"><i class="fas fa-eye"></i> 100+</span>
+                        </div>
+                        <div class="repo-links">
+                            <a href="https://github.com/SIKANDAR063/hotel-listing-mern" target="_blank" class="repo-link">
+                                <i class="fab fa-github"></i><span>Code</span>
+                            </a>
+                            <a href="#" class="repo-link">
+                                <i class="fas fa-external-link-alt"></i><span>Live Demo</span>
+                            </a>
+                        </div>
+                        <div class="repo-glow"></div>
+                    </div>
+
+                    <!-- House Price Prediction -->
+                    <div class="repo-card">
+                        <div class="repo-header">
+                            <div class="repo-icon"><i class="fas fa-home"></i></div>
+                            <h4>House-Price-Prediction</h4>
+                            <span class="repo-lang">Python</span>
+                        </div>
+                        <p class="repo-desc">
+                            End-to-end ML pipeline for predicting house prices with feature engineering.
+                            Includes data preprocessing, model training, and web interface for predictions.
+                        </p>
+                        <div class="repo-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Scikit-learn</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">Flask</span>
+                            <span class="tech-tag">NumPy</span>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat"><i class="fas fa-star star-glow"></i> 6</span>
+                            <span class="stat"><i class="fas fa-code-branch"></i> 1</span>
+                            <span class="stat"><i class="fas fa-eye"></i> 90+</span>
+                        </div>
+                        <div class="repo-links">
+                            <a href="https://github.com/SIKANDAR063/House-Price-Prediction" target="_blank" class="repo-link">
+                                <i class="fab fa-github"></i><span>Code</span>
+                            </a>
+                            <a href="#" class="repo-link">
+                                <i class="fas fa-chart-line"></i><span>Analysis</span>
+                            </a>
+                        </div>
+                        <div class="repo-glow"></div>
+                    </div>
+
+                    <!-- Weather Forecast Application -->
+                    <div class="repo-card">
+                        <div class="repo-header">
+                            <div class="repo-icon"><i class="fas fa-cloud-sun"></i></div>
+                            <h4>Weather-Project</h4>
+                            <span class="repo-lang">JavaScript</span>
+                        </div>
+                        <p class="repo-desc">
+                            Real-time weather app using OpenWeatherMap API with responsive UI.
+                            Implemented error handling and dynamic UI updates using JavaScript.
+                            Cross-device compatible responsive design.
+                        </p>
+                        <div class="repo-tech">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat"><i class="fas fa-star star-glow"></i> 12</span>
+                            <span class="stat"><i class="fas fa-code-branch"></i> 3</span>
+                            <span class="stat"><i class="fas fa-eye"></i> 180+</span>
+                        </div>
+                        <div class="repo-links">
+                            <a href="https://github.com/SIKANDAR063/Weather-Project" target="_blank" class="repo-link">
+                                <i class="fab fa-github"></i><span>Code</span>
+                            </a>
+                            <a href="https://weather-by-sikandar-4063.netlify.app" target="_blank" class="repo-link">
+                                <i class="fas fa-external-link-alt"></i><span>Live Demo</span>
+                            </a>
+                        </div>
+                        <div class="repo-glow"></div>
+                    </div>
+
+                    <!-- Snake Game -->
+                    <div class="repo-card">
+                        <div class="repo-header">
+                            <div class="repo-icon"><i class="fas fa-gamepad"></i></div>
+                            <h4>Snake-Game</h4>
+                            <span class="repo-lang">JavaScript</span>
+                        </div>
+                        <p class="repo-desc">
+                            Interactive browser-based snake game with smooth animations, keyboard controls,
+                            score tracking, and local high score storage.
+                        </p>
+                        <div class="repo-tech">
+                            <span class="tech-tag">HTML5</span>
+                            <span class="tech-tag">CSS3</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">Canvas</span>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat"><i class="fas fa-star star-glow"></i> 9</span>
+                            <span class="stat"><i class="fas fa-code-branch"></i> 2</span>
+                            <span class="stat"><i class="fas fa-eye"></i> 130+</span>
+                        </div>
+                        <div class="repo-links">
+                            <a href="https://github.com/SIKANDAR063/Snake-Game" target="_blank" class="repo-link">
+                                <i class="fab fa-github"></i><span>Code</span>
+                            </a>
+                            <a href="https://quick-game-by-me.netlify.app" target="_blank" class="repo-link">
+                                <i class="fas fa-external-link-alt"></i><span>Play Game</span>
+                            </a>
+                        </div>
+                        <div class="repo-glow"></div>
+                    </div>
+
+                    <!-- Movie Recommendation Web App -->
+                    <div class="repo-card">
+                        <div class="repo-header">
+                            <div class="repo-icon"><i class="fas fa-ticket-alt"></i></div>
+                            <h4>Movie-Recommendation-Web</h4>
+                            <span class="repo-lang">Python</span>
+                        </div>
+                        <p class="repo-desc">
+                            Recommendation engine with search and filtering capabilities.
+                            Utilized structured datasets and backend logic for personalized recommendations.
+                            Deployed with proper environment configuration.
+                        </p>
+                        <div class="repo-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">FastAPI</span>
+                            <span class="tech-tag">Streamlit</span>
+                            <span class="tech-tag">Pandas</span>
+                        </div>
+                        <div class="repo-stats">
+                            <span class="stat"><i class="fas fa-star star-glow"></i> 7</span>
+                            <span class="stat"><i class="fas fa-code-branch"></i> 2</span>
+                            <span class="stat"><i class="fas fa-eye"></i> 110+</span>
+                        </div>
+                        <div class="repo-links">
+                            <a href="https://github.com/SIKANDAR063/movie-recommender-web" target="_blank" class="repo-link">
+                                <i class="fab fa-github"></i><span>Code</span>
+                            </a>
+                            <a href="#" class="repo-link">
+                                <i class="fas fa-external-link-alt"></i><span>Live Demo</span>
+                            </a>
+                        </div>
+                        <div class="repo-glow"></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- GitHub Contribution Graph -->
+            <div class="github-contributions">
+                <div class="contributions-header">
+                    <h3>
+                        <i class="fas fa-calendar-alt"></i>
+                        Contribution Activity
+                    </h3>
+                    <span class="contributions-year">2025</span>
+                </div>
+                <div class="contribution-graph">
+                    <div class="contribution-grid" id="contributionGrid">
+                        <!-- Generated by JavaScript -->
+                    </div>
+                    <div class="contribution-legend">
+                        <span class="legend-text">Less</span>
+                        <div class="legend-colors">
+                            <div class="legend-color less"></div>
+                            <div class="legend-color"></div>
+                            <div class="legend-color"></div>
+                            <div class="legend-color more"></div>
+                        </div>
+                        <span class="legend-text">More</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GitHub Activity Timeline -->
+            <div class="github-activity">
+                <h3>
+                    <i class="fas fa-history"></i>
+                    Recent Activity
+                </h3>
+                <div class="activity-timeline">
+                    <div class="activity-item">
+                        <div class="activity-icon commit">
+                            <i class="fas fa-code-commit"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-text">
+                                Committed to <strong>Movie-Recommendation-System</strong>
+                                <span class="activity-desc">Added FastAPI backend endpoints and improved recommendation algorithm</span>
+                            </p>
+                            <span class="activity-time">
+                                <i class="far fa-clock"></i>
+                                2 hours ago
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon pr">
+                            <i class="fas fa-code-pull-request"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-text">
+                                Opened pull request in <strong>Heart-Disease-Prediction</strong>
+                                <span class="activity-desc">Added model evaluation metrics and improved accuracy</span>
+                            </p>
+                            <span class="activity-time">
+                                <i class="far fa-clock"></i>
+                                1 day ago
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon repo">
+                            <i class="fas fa-plus-circle"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-text">
+                                Created new repository
+                                <span class="activity-desc">Hotel-Listing-MERN - Full stack hotel management app</span>
+                            </p>
+                            <span class="activity-time">
+                                <i class="far fa-clock"></i>
+                                3 days ago
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <div class="activity-item">
+                        <div class="activity-icon star">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-text">
+                                Starred repository
+                                <span class="activity-desc">langchain-ai/langchain</span>
+                            </p>
+                            <span class="activity-time">
+                                <i class="far fa-clock"></i>
+                                1 week ago
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="activity-item">
+                        <div class="activity-icon push">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="activity-content">
+                            <p class="activity-text">
+                                Deployed project
+                                <span class="activity-desc">Movie-Recommendation-System live on Streamlit Cloud</span>
+                            </p>
+                            <span class="activity-time">
+                                <i class="far fa-clock"></i>
+                                4 days ago
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- GitHub Languages Distribution -->
+            <div class="github-languages">
+                <div class="languages-header">
+                    <h3>
+                        <i class="fas fa-code"></i>
+                        Top Languages
+                    </h3>
+                    <p class="languages-subtitle">Code distribution across repositories</p>
+                </div>
+                <div class="languages-chart">
+                    <div class="language-item">
+                        <div class="language-info">
+                            <div class="language-color" style="background: #3572A5;"></div>
+                            <span class="language-name">Python</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-progress" style="width: 85%;"></div>
+                        </div>
+                        <span class="language-percentage">85%</span>
+                    </div>
+                    
+                    <div class="language-item">
+                        <div class="language-info">
+                            <div class="language-color" style="background: #f1e05a;"></div>
+                            <span class="language-name">JavaScript</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-progress" style="width: 90%;"></div>
+                        </div>
+                        <span class="language-percentage">90%</span>
+                    </div>
+                    
+                    <div class="language-item">
+                        <div class="language-info">
+                            <div class="language-color" style="background: #f34b7d;"></div>
+                            <span class="language-name">C++</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-progress" style="width: 95%;"></div>
+                        </div>
+                        <span class="language-percentage">95%</span>
+                    </div>
+                    
+                    <div class="language-item">
+                        <div class="language-info">
+                            <div class="language-color" style="background: #e34c26;"></div>
+                            <span class="language-name">HTML/CSS</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-progress" style="width: 80%;"></div>
+                        </div>
+                        <span class="language-percentage">80%</span>
+                    </div>
+
+                    <div class="language-item">
+                        <div class="language-info">
+                            <div class="language-color" style="background: #563d7c;"></div>
+                            <span class="language-name">TypeScript</span>
+                        </div>
+                        <div class="language-bar">
+                            <div class="language-progress" style="width: 5%;"></div>
+                        </div>
+                        <span class="language-percentage">5%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* GitHub Section Enhanced Styles */
+    .github-stats {
+        padding: 2rem;
+    }
+    
+    .github-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+    }
+    
+    .github-user {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .github-avatar {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #a855f7;
+        box-shadow: 0 0 20px rgba(168, 85, 247, 0.3);
+    }
+    
+    .github-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    
+    .github-info h3 {
+        font-size: 1.5rem;
+        margin-bottom: 0.25rem;
+        background: linear-gradient(135deg, #fff, #a855f7);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    
+    .github-info p {
+        color: #94a3b8;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .github-meta {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+    
+    .meta-item {
+        font-size: 0.8rem;
+        color: #94a3b8;
+    }
+    
+    .meta-item i {
+        color: #a855f7;
+        margin-right: 0.25rem;
+    }
+    
+    .github-link {
+        background: linear-gradient(90deg, #3b82f6, #a855f7);
+    }
+    
+    .featured-title {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #e0e0ff;
+    }
+    
+    .github-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .repo-card {
+        background: rgba(15, 15, 25, 0.6);
+        border-radius: 20px;
+        padding: 1.2rem;
+        border: 1px solid rgba(168, 85, 247, 0.2);
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .repo-card:hover {
+        transform: translateY(-5px);
+        border-color: #a855f7;
+        box-shadow: 0 10px 30px rgba(168, 85, 247, 0.15);
+    }
+    
+    .repo-header {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+        flex-wrap: wrap;
+    }
+    
+    .repo-icon {
+        font-size: 1.5rem;
+        color: #a855f7;
+    }
+    
+    .repo-header h4 {
+        font-size: 1.1rem;
+        flex: 1;
+    }
+    
+    .repo-lang {
+        font-size: 0.7rem;
+        background: rgba(168, 85, 247, 0.2);
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        color: #a855f7;
+    }
+    
+    .repo-desc {
+        font-size: 0.85rem;
+        color: #94a3b8;
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
+    }
+    
+    .repo-tech {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .repo-tech .tech-tag {
+        background: rgba(59, 130, 246, 0.15);
+        padding: 0.2rem 0.6rem;
+        border-radius: 15px;
+        font-size: 0.7rem;
+        color: #60a5fa;
+    }
+    
+    .repo-stats {
+        display: flex;
+        gap: 1rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .repo-stats .stat {
+        font-size: 0.75rem;
+        color: #94a3b8;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    
+    .repo-stats .stat i {
+        color: #fbbf24;
+    }
+    
+    .repo-links {
+        display: flex;
+        gap: 1rem;
+    }
+    
+    .repo-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.8rem;
+        color: #94a3b8;
+        text-decoration: none;
+        transition: color 0.3s;
+    }
+    
+    .repo-link:hover {
+        color: #a855f7;
+    }
+    
+    .repo-glow {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.1), transparent);
+        transition: left 0.5s;
+        pointer-events: none;
+    }
+    
+    .repo-card:hover .repo-glow {
+        left: 100%;
+    }
+    
+    /* Contributions Section */
+    .github-contributions {
+        margin: 2rem 0;
+        padding: 1rem;
+        background: rgba(10, 10, 20, 0.4);
+        border-radius: 20px;
+    }
+    
+    .contributions-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+    
+    .contributions-header h3 {
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .contributions-year {
+        color: #a855f7;
+        font-weight: 600;
+    }
+    
+    .contribution-grid {
+        display: grid;
+        grid-template-columns: repeat(52, 1fr);
+        gap: 3px;
+        margin: 1rem 0;
+        overflow-x: auto;
+    }
+    
+    .contribution-cell {
+        aspect-ratio: 1;
+        background: #1e1e2e;
+        border-radius: 3px;
+        transition: background 0.2s;
+    }
+    
+    .contribution-cell.level-1 { background: #0e4429; }
+    .contribution-cell.level-2 { background: #006d32; }
+    .contribution-cell.level-3 { background: #26a641; }
+    .contribution-cell.level-4 { background: #39d353; }
+    
+    .contribution-legend {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+    }
+    
+    .legend-colors {
+        display: flex;
+        gap: 2px;
+    }
+    
+    .legend-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 2px;
+        background: #1e1e2e;
+    }
+    
+    .legend-color.less { background: #0e4429; }
+    .legend-color.more { background: #39d353; }
+    
+    /* Activity Timeline */
+    .github-activity {
+        margin: 2rem 0;
+    }
+    
+    .github-activity h3 {
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .activity-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .activity-item {
+        display: flex;
+        gap: 1rem;
+        padding: 0.75rem;
+        background: rgba(15, 15, 25, 0.4);
+        border-radius: 12px;
+        transition: background 0.3s;
+    }
+    
+    .activity-item:hover {
+        background: rgba(168, 85, 247, 0.1);
+    }
+    
+    .activity-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(168, 85, 247, 0.15);
+    }
+    
+    .activity-icon.commit i { color: #3b82f6; }
+    .activity-icon.pr i { color: #a855f7; }
+    .activity-icon.repo i { color: #10b981; }
+    .activity-icon.star i { color: #fbbf24; }
+    .activity-icon.push i { color: #06b6d4; }
+    
+    .activity-content {
+        flex: 1;
+    }
+    
+    .activity-text {
+        font-size: 0.85rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .activity-desc {
+        display: block;
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-top: 0.25rem;
+    }
+    
+    .activity-time {
+        font-size: 0.7rem;
+        color: #64748b;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    
+    /* Languages Section */
+    .github-languages {
+        margin-top: 2rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(168, 85, 247, 0.2);
+    }
+    
+    .languages-header h3 {
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .languages-subtitle {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-bottom: 1rem;
+    }
+    
+    .languages-chart {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .language-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+    
+    .language-info {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100px;
+    }
+    
+    .language-color {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+    }
+    
+    .language-name {
+        font-size: 0.85rem;
+    }
+    
+    .language-bar {
+        flex: 1;
+        height: 6px;
+        background: #1e1e2e;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+    
+    .language-progress {
+        height: 100%;
+        background: linear-gradient(90deg, #3b82f6, #a855f7);
+        border-radius: 6px;
+    }
+    
+    .language-percentage {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        width: 40px;
+        text-align: right;
+    }
+    
+    @media (max-width: 768px) {
+        .github-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .github-header {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .github-user {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .contribution-grid {
+            grid-template-columns: repeat(26, 1fr);
+        }
+        
+        .language-item {
+            flex-wrap: wrap;
+        }
+        
+        .language-info {
+            width: auto;
+        }
+    }
+</style>
+
+<script>
+    // Generate contribution grid
+    function generateContributionGrid() {
+        const grid = document.getElementById('contributionGrid');
+        if (!grid) return;
+        
+        grid.innerHTML = '';
+        // Generate 52 weeks * 7 days = 364 cells
+        for (let i = 0; i < 364; i++) {
+            const cell = document.createElement('div');
+            cell.classList.add('contribution-cell');
+            // Random contribution levels for demo
+            const level = Math.floor(Math.random() * 5);
+            if (level > 0) {
+                cell.classList.add(`level-${level}`);
+            }
+            grid.appendChild(cell);
+        }
+    }
+    
+    // Run when DOM is loaded
+    document.addEventListener('DOMContentLoaded', generateContributionGrid);
+</script>
+        
+
+        
+
+        <!-- Projects Section -->
+        <!-- Projects Section -->
+     <!-- Projects Section -->
+ <section id="projects" class="projects-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">
+                <i class="fas fa-project-diagram"></i>
+            </div>
+            <h2 class="section-title">Projects</h2>
+            <div class="section-subtitle">My Digital Creations</div>
+        </div>
+        
+        <div class="projects-grid">
+            <!-- Project 1: Weather Forecast App -->
+            <div class="project-card cosmic-card">
+                <div class="project-badge-container">
+                    <div class="project-badge featured">Featured</div>
+                    <div class="project-badge web">Web App</div>
+                </div>
+                
+                <div class="project-header">
+                    <div class="project-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <h3 class="project-title">Weather Forecast App</h3>
+                    <p class="project-subtitle">Real-time weather data visualization</p>
+                </div>
+                
+                <div class="project-image">
+                    <div class="image-container">
+                        <img src="assets/images/project-weather.png" alt="Weather Forecast App" class="project-img" onerror="this.style.display='none'">
+                        <div class="image-overlay">
+                            <div class="tech-stack">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">API</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-content">
+                    <p class="project-description">
+                        A responsive weather application that provides real-time weather data using OpenWeatherMap API. 
+                        Features dynamic temperature display, humidity, wind speed, and 5-day forecast with interactive UI.
+                    </p>
+                    
+                    <div class="project-features">
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Real-time weather updates</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>5-day forecast</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Location-based data</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Responsive design</span></div>
+                    </div>
+                    
+                    <div class="project-stats">
+                        <div class="stat"><i class="fas fa-code"></i><span>1500+ lines</span></div>
+                        <div class="stat"><i class="fas fa-clock"></i><span>2 weeks</span></div>
+                        <div class="stat"><i class="fas fa-star"></i><span>12 stars</span></div>
+                    </div>
+                    
+                    <div class="project-links">
+                        <a href="https://github.com/SIKANDAR063/Weather-Project" target="_blank" class="project-link code"><i class="fab fa-github"></i><span>View Code</span></a>
+                        <a href="https://weather-by-sikandar-4063.netlify.app" target="_blank" class="project-link demo"><i class="fas fa-external-link-alt"></i><span>Live Demo</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 2: Snake Game -->
+            <div class="project-card cosmic-card">
+                <div class="project-badge-container">
+                    <div class="project-badge game">Game</div>
+                    <div class="project-badge interactive">Interactive</div>
+                </div>
+                
+                <div class="project-header">
+                    <div class="project-icon"><i class="fas fa-gamepad"></i></div>
+                    <h3 class="project-title">Snake Game</h3>
+                    <p class="project-subtitle">Classic game with modern implementation</p>
+                </div>
+                
+                <div class="project-image">
+                    <div class="image-container">
+                        <img src="assets/images/project-snake.png" alt="Snake Game" class="project-img" onerror="this.style.display='none'">
+                        <div class="image-overlay">
+                            <div class="tech-stack">
+                                <span class="tech-tag">HTML5</span>
+                                <span class="tech-tag">CSS3</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Canvas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-content">
+                    <p class="project-description">
+                        A modern implementation of the classic Snake game with smooth animations, score tracking, 
+                        and responsive controls. Includes multiple difficulty levels and local high score storage.
+                    </p>
+                    
+                    <div class="project-features">
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Keyboard controls</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Score tracking</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Multiple levels</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>High score storage</span></div>
+                    </div>
+                    
+                    <div class="project-stats">
+                        <div class="stat"><i class="fas fa-code"></i><span>800+ lines</span></div>
+                        <div class="stat"><i class="fas fa-clock"></i><span>1 week</span></div>
+                        <div class="stat"><i class="fas fa-star"></i><span>8 stars</span></div>
+                    </div>
+                    
+                    <div class="project-links">
+                        <a href="https://github.com/SIKANDAR063/Snake-Game" target="_blank" class="project-link code"><i class="fab fa-github"></i><span>View Code</span></a>
+                        <a href="https://quick-game-by-me.netlify.app" target="_blank" class="project-link demo"><i class="fas fa-external-link-alt"></i><span>Play Game</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 3: House Price Prediction -->
+            <div class="project-card cosmic-card">
+                <div class="project-badge-container">
+                    <div class="project-badge ml">ML Project</div>
+                    <div class="project-badge data">Data Science</div>
+                </div>
+                
+                <div class="project-header">
+                    <div class="project-icon"><i class="fas fa-home"></i></div>
+                    <h3 class="project-title">House Price Prediction</h3>
+                    <p class="project-subtitle">Machine learning for real estate</p>
+                </div>
+                
+                <div class="project-image">
+                    <div class="image-container">
+                        <img src="assets/images/project-house.png" alt="House Price Prediction" class="project-img" onerror="this.style.display='none'">
+                        <div class="image-overlay">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Scikit-learn</span>
+                                <span class="tech-tag">Pandas</span>
+                                <span class="tech-tag">Flask</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-content">
+                    <p class="project-description">
+                        An end-to-end machine learning system for predicting house prices based on various features. 
+                        Includes data preprocessing, model training, and a web interface for predictions.
+                    </p>
+                    
+                    <div class="project-features">
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Multiple ML algorithms</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Data visualization</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Web interface</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Model evaluation</span></div>
+                    </div>
+                    
+                    <div class="project-stats">
+                        <div class="stat"><i class="fas fa-code"></i><span>1200+ lines</span></div>
+                        <div class="stat"><i class="fas fa-clock"></i><span>3 weeks</span></div>
+                        <div class="stat"><i class="fas fa-star"></i><span>5 stars</span></div>
+                    </div>
+                    
+                    <div class="project-links">
+                        <a href="https://github.com/SIKANDAR063/House-Price-Prediction" target="_blank" class="project-link code"><i class="fab fa-github"></i><span>View Code</span></a>
+                        <a href="#" class="project-link demo"><i class="fas fa-chart-line"></i><span>View Analysis</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 4: Movie Recommendation System (ML + Web) -->
+            <div class="project-card cosmic-card">
+                <div class="project-badge-container">
+                    <div class="project-badge featured">Featured</div>
+                    <div class="project-badge ml">ML Project</div>
+                    <div class="project-badge web">Web App</div>
+                </div>
+                
+                <div class="project-header">
+                    <div class="project-icon"><i class="fas fa-film"></i></div>
+                    <h3 class="project-title">Movie Recommendation System</h3>
+                    <p class="project-subtitle">Machine Learning + Web Integration</p>
+                </div>
+                
+                <div class="project-image">
+                    <div class="image-container">
+                        <img src="assets/images/Movie recommendation system interface design.png" alt="Movie Recommendation System" class="project-img" onerror="this.src='https://placehold.co/600x400/1a1a2e/a855f7?text=Movie+Recommendation'">
+                        <div class="image-overlay">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">Streamlit</span>
+                                <span class="tech-tag">Scikit-learn</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-content">
+                    <p class="project-description">
+                        Developed a movie recommendation system using Python, FastAPI, and Streamlit integrating machine learning with a web application.
+                        Built RESTful APIs for movie search and recommendation features enabling smooth frontend–backend interaction.
+                        Deployed the application using Render (backend) and Streamlit Cloud (frontend) for public access.
+                    </p>
+                    
+                    <div class="project-features">
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Content-based filtering</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>RESTful APIs with FastAPI</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Streamlit frontend</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Render + Streamlit Cloud deployment</span></div>
+                    </div>
+                    
+                    <div class="project-stats">
+                        <div class="stat"><i class="fas fa-code"></i><span>Python/FastAPI</span></div>
+                        <div class="stat"><i class="fas fa-database"></i><span>TF-IDF + Cosine</span></div>
+                        <div class="stat"><i class="fas fa-cloud"></i><span>Deployed</span></div>
+                    </div>
+                    
+                    <div class="project-links">
+                        <a href="#" class="project-link code" target="_blank"><i class="fab fa-github"></i><span>GitHub</span></a>
+                        <a href="#" class="project-link demo" target="_blank"><i class="fas fa-external-link-alt"></i><span>Live Demo</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 5: Heart Disease Prediction System -->
+            <div class="project-card cosmic-card">
+                <div class="project-badge-container">
+                    <div class="project-badge ml">ML Project</div>
+                    <div class="project-badge data">Deployment</div>
+                </div>
+                
+                <div class="project-header">
+                    <div class="project-icon"><i class="fas fa-heartbeat"></i></div>
+                    <h3 class="project-title">Heart Disease Prediction System</h3>
+                    <p class="project-subtitle">Machine Learning Deployment Project</p>
+                </div>
+                
+                <div class="project-image">
+                    <div class="image-container">
+                        <img src="assets/images/Heart disease risk prediction system.png" alt="Heart Disease Prediction System" class="project-img" onerror="this.src='https://placehold.co/600x400/1a1a2e/ef4444?text=Heart+Disease+Prediction'">
+                        <div class="image-overlay">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Scikit-learn</span>
+                                <span class="tech-tag">KNN</span>
+                                <span class="tech-tag">Streamlit</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-content">
+                    <p class="project-description">
+                        Developed a heart disease prediction system using KNN with Python, Scikit-learn, and Streamlit.
+                        Performed data preprocessing including encoding, scaling, and feature normalization for improved model performance.
+                        Evaluated model performance using standard machine learning metrics for reliable predictions.
+                        Built an interactive Streamlit dashboard and deployed the application online.
+                    </p>
+                    
+                    <div class="project-features">
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>KNN Classification</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Data preprocessing & scaling</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Interactive Streamlit dashboard</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Model evaluation metrics</span></div>
+                    </div>
+                    
+                    <div class="project-stats">
+                        <div class="stat"><i class="fas fa-code"></i><span>Python/KNN</span></div>
+                        <div class="stat"><i class="fas fa-chart-line"></i><span>Accuracy Metrics</span></div>
+                        <div class="stat"><i class="fas fa-dashboard"></i><span>Streamlit</span></div>
+                    </div>
+                    
+                    <div class="project-links">
+                        <a href="#" class="project-link code" target="_blank"><i class="fab fa-github"></i><span>GitHub</span></a>
+                        <a href="#" class="project-link demo" target="_blank"><i class="fas fa-external-link-alt"></i><span>Live Demo</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 6: Hotel Listing Web Application (Full Stack MERN) -->
+            <div class="project-card cosmic-card">
+                <div class="project-badge-container">
+                    <div class="project-badge featured">Featured</div>
+                    <div class="project-badge web">Full Stack</div>
+                    <div class="project-badge mern">MERN</div>
+                </div>
+                
+                <div class="project-header">
+                    <div class="project-icon"><i class="fas fa-hotel"></i></div>
+                    <h3 class="project-title">Hotel Listing Web Application</h3>
+                    <p class="project-subtitle">Full Stack MERN Application</p>
+                </div>
+                
+                <div class="project-image">
+                    <div class="image-container">
+                        <img src="assets/images/Hotel booking app on smartphone screen.png" alt="Hotel Listing Web Application" class="project-img" onerror="this.src='https://placehold.co/600x400/1a1a2e/3b82f6?text=Hotel+Booking+App'">
+                        <div class="image-overlay">
+                            <div class="tech-stack">
+                                <span class="tech-tag">MongoDB</span>
+                                <span class="tech-tag">Express.js</span>
+                                <span class="tech-tag">React.js</span>
+                                <span class="tech-tag">Node.js</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-content">
+                    <p class="project-description">
+                        Developed a scalable full-stack MERN application handling dynamic hotel listings and user interactions.
+                        Designed RESTful APIs with Node.js and Express.js supporting CRUD operations and efficient data flow.
+                        Implemented MongoDB database schema for optimized data storage and retrieval.
+                        Built responsive UI using React.js, improving user engagement and accessibility.
+                        Deployed application on cloud platform with version control via GitHub.
+                    </p>
+                    
+                    <div class="project-features">
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>CRUD Operations</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>RESTful APIs</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>MongoDB Schema Design</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Responsive React UI</span></div>
+                    </div>
+                    
+                    <div class="project-stats">
+                        <div class="stat"><i class="fas fa-code"></i><span>MERN Stack</span></div>
+                        <div class="stat"><i class="fas fa-database"></i><span>MongoDB</span></div>
+                        <div class="stat"><i class="fas fa-cloud"></i><span>Cloud Deployed</span></div>
+                    </div>
+                    
+                    <div class="project-links">
+                        <a href="#" class="project-link code" target="_blank"><i class="fab fa-github"></i><span>GitHub</span></a>
+                        <a href="#" class="project-link demo" target="_blank"><i class="fas fa-external-link-alt"></i><span>Live Demo</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 7: Weather Forecast Application (API Integration) -->
+            <div class="project-card cosmic-card">
+                <div class="project-badge-container">
+                    <div class="project-badge web">Frontend</div>
+                    <div class="project-badge api">API Integration</div>
+                </div>
+                
+                <div class="project-header">
+                    <div class="project-icon"><i class="fas fa-cloud-sun-rain"></i></div>
+                    <h3 class="project-title">Weather Forecast Application</h3>
+                    <p class="project-subtitle">Frontend Application with API Integration</p>
+                </div>
+                
+                <div class="project-image">
+                    <div class="image-container">
+                        <img src="assets/images/project-weather.png" alt="Weather Forecast Application" class="project-img" onerror="this.style.display='none'">
+                        <div class="image-overlay">
+                            <div class="tech-stack">
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">OpenWeatherMap</span>
+                                <span class="tech-tag">REST API</span>
+                                <span class="tech-tag">CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-content">
+                    <p class="project-description">
+                        Integrated third-party REST API (OpenWeatherMap) to fetch real-time weather data.
+                        Implemented error handling and dynamic UI updates using JavaScript.
+                        Designed responsive interface ensuring cross-device compatibility.
+                    </p>
+                    
+                    <div class="project-features">
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Real-time weather data</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Error handling</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Dynamic UI updates</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Cross-device responsive</span></div>
+                    </div>
+                    
+                    <div class="project-stats">
+                        <div class="stat"><i class="fas fa-code"></i><span>JavaScript</span></div>
+                        <div class="stat"><i class="fas fa-plug"></i><span>REST API</span></div>
+                        <div class="stat"><i class="fas fa-mobile-alt"></i><span>Responsive</span></div>
+                    </div>
+                    
+                    <div class="project-links">
+                        <a href="https://github.com/SIKANDAR063/Weather-Project" target="_blank" class="project-link code"><i class="fab fa-github"></i><span>GitHub</span></a>
+                        <a href="https://weather-by-sikandar-4063.netlify.app" target="_blank" class="project-link demo"><i class="fas fa-external-link-alt"></i><span>Live Demo</span></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Project 8: Movie Recommendation Web App -->
+            <div class="project-card cosmic-card">
+                <div class="project-badge-container">
+                    <div class="project-badge web">Web App</div>
+                    <div class="project-badge recommendation">Recommendation</div>
+                </div>
+                
+                <div class="project-header">
+                    <div class="project-icon"><i class="fas fa-ticket-alt"></i></div>
+                    <h3 class="project-title">Movie Recommendation System</h3>
+                    <p class="project-subtitle">Web Application Project</p>
+                </div>
+                
+                <div class="project-image">
+                    <div class="image-container">
+                        <img src="assets/images/Movie recommendation system interface design.png" alt="Movie Recommendation Web App" class="project-img" onerror="this.src='https://placehold.co/600x400/1a1a2e/10b981?text=Movie+Recommendation'">
+                        <div class="image-overlay">
+                            <div class="tech-stack">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">FastAPI</span>
+                                <span class="tech-tag">Streamlit</span>
+                                <span class="tech-tag">Render</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-content">
+                    <p class="project-description">
+                        Developed a recommendation engine with search and filtering capabilities.
+                        Utilized structured datasets and backend logic for personalized recommendations.
+                        Deployed application with proper environment configuration.
+                    </p>
+                    
+                    <div class="project-features">
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Search & filtering</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Personalized recommendations</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Environment configuration</span></div>
+                        <div class="feature"><i class="fas fa-check-circle"></i><span>Backend logic integration</span></div>
+                    </div>
+                    
+                    <div class="project-stats">
+                        <div class="stat"><i class="fas fa-code"></i><span>Python/FastAPI</span></div>
+                        <div class="stat"><i class="fas fa-database"></i><span>Structured Datasets</span></div>
+                        <div class="stat"><i class="fas fa-cloud"></i><span>Deployed</span></div>
+                    </div>
+                    
+                    <div class="project-links">
+                        <a href="#" class="project-link code" target="_blank"><i class="fab fa-github"></i><span>GitHub</span></a>
+                        <a href="#" class="project-link demo" target="_blank"><i class="fas fa-external-link-alt"></i><span>Live Demo</span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* Projects Section Enhanced Styles */
+    .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+    
+    .project-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        overflow: hidden;
+    }
+    
+    .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 35px -15px rgba(168, 85, 247, 0.3);
+    }
+    
+    .project-badge-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .project-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .project-badge.featured { background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; }
+    .project-badge.web { background: linear-gradient(135deg, #3b82f6, #06b6d4); color: white; }
+    .project-badge.ml { background: linear-gradient(135deg, #8b5cf6, #a855f7); color: white; }
+    .project-badge.game { background: linear-gradient(135deg, #ec4899, #f43f5e); color: white; }
+    .project-badge.mern { background: linear-gradient(135deg, #10b981, #059669); color: white; }
+    .project-badge.api { background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; }
+    .project-badge.data { background: linear-gradient(135deg, #14b8a6, #0d9488); color: white; }
+    .project-badge.interactive { background: linear-gradient(135deg, #f97316, #ea580c); color: white; }
+    .project-badge.recommendation { background: linear-gradient(135deg, #d946ef, #c026d3); color: white; }
+    
+    .project-header {
+        text-align: center;
+        margin-bottom: 1rem;
+    }
+    
+    .project-icon {
+        font-size: 2.5rem;
+        color: #a855f7;
+        margin-bottom: 0.5rem;
+    }
+    
+    .project-title {
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+        background: linear-gradient(135deg, #fff, #a855f7);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    
+    .project-subtitle {
+        font-size: 0.85rem;
+        color: #94a3b8;
+    }
+    
+    /* Image Container Styles - 100% view */
+    .project-image {
+        width: 100%;
+        margin: 1rem 0;
+        border-radius: 16px;
+        overflow: hidden;
+    }
+    
+    .image-container {
+        position: relative;
+        width: 100%;
+        border-radius: 16px;
+        overflow: hidden;
+        background: linear-gradient(135deg, #1a1a2e, #16213e);
+    }
+    
+    .project-img {
+        width: 100%;
+        height: auto;
+        min-height: 200px;
+        max-height: 250px;
+        object-fit: cover;
+        object-position: center;
+        display: block;
+        transition: transform 0.4s ease;
+    }
+    
+    .project-card:hover .project-img {
+        transform: scale(1.05);
+    }
+    
+    .image-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        padding: 1rem;
+        transform: translateY(100%);
+        transition: transform 0.3s ease;
+    }
+    
+    .image-container:hover .image-overlay {
+        transform: translateY(0);
+    }
+    
+    .tech-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        justify-content: center;
+    }
+    
+    .tech-stack .tech-tag {
+        background: rgba(168, 85, 247, 0.8);
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        color: white;
+    }
+    
+    .project-description {
+        color: #cbd5e1;
+        line-height: 1.6;
+        font-size: 0.9rem;
+        margin: 1rem 0;
+    }
+    
+    .project-features {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+        margin: 1rem 0;
+    }
+    
+    .feature {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.8rem;
+        color: #94a3b8;
+    }
+    
+    .feature i {
+        color: #10b981;
+        font-size: 0.7rem;
+    }
+    
+    .project-stats {
+        display: flex;
+        justify-content: space-around;
+        padding: 0.75rem 0;
+        border-top: 1px solid rgba(168, 85, 247, 0.2);
+        border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        margin: 1rem 0;
+    }
+    
+    .stat {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.8rem;
+        color: #94a3b8;
+    }
+    
+    .stat i {
+        color: #a855f7;
+    }
+    
+    .project-links {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+    }
+    
+    .project-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+    
+    .project-link.code {
+        background: rgba(168, 85, 247, 0.15);
+        color: #a855f7;
+        border: 1px solid rgba(168, 85, 247, 0.3);
+    }
+    
+    .project-link.demo {
+        background: rgba(59, 130, 246, 0.15);
+        color: #3b82f6;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    
+    .project-link:hover {
+        transform: translateY(-2px);
+    }
+    
+    .project-link.code:hover {
+        background: rgba(168, 85, 247, 0.3);
+        box-shadow: 0 0 10px rgba(168, 85, 247, 0.4);
+    }
+    
+    .project-link.demo:hover {
+        background: rgba(59, 130, 246, 0.3);
+        box-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+    }
+    
+    @media (max-width: 768px) {
+        .projects-grid {
+            grid-template-columns: 1fr;
+        }
+        
+        .project-features {
+            grid-template-columns: 1fr;
+        }
+        
+        .project-links {
+            flex-wrap: wrap;
+        }
+        
+        .project-img {
+            min-height: 180px;
+            max-height: 220px;
+        }
+    }
+</style>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-icon">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <h2 class="section-title">Get In Touch</h2>
+                    <div class="section-subtitle">Let's Connect Across the Digital Universe</div>
+                </div>
+                
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <div class="contact-card cosmic-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3 class="contact-title">Email</h3>
+                            <a href="mailto:sikandarali3572@gmail.com" class="contact-detail responsive-email">
+                                sikandarali3572@gmail.com
+                            </a>
+                            <button class="copy-btn" data-text="sikandarali3572@gmail.com">
+                                <i class="fas fa-copy"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="contact-card cosmic-card">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3 class="contact-title">Location</h3>
+                            <p class="contact-detail">Kanpur, Uttar Pradesh, India</p>
+                        </div>
+                        
+                        <div class="contact-card cosmic-card">
+                            <div class="contact-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h3 class="contact-title">GitHub</h3>
+                            <a href="https://github.com/SIKANDAR063" target="_blank" class="contact-detail">
+                                SIKANDAR063
+                            </a>
+                        </div>
+                        
+                        <div class="contact-card cosmic-card">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <h3 class="contact-title">LinkedIn</h3>
+                            <a href="https://linkedin.com/in/sikandar-ali-05a217272" target="_blank" class="contact-detail">
+                                sikandar-ali-05a217272
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form cosmic-card">
+                        <form id="contactForm">
+                            <div class="form-group">
+                                <label for="name">
+                                    <i class="fas fa-user"></i>
+                                    Your Name
+                                </label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">
+                                    <i class="fas fa-envelope"></i>
+                                    Your Email
+                                </label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">
+                                    <i class="fas fa-tag"></i>
+                                    Subject
+                                </label>
+                                <input type="text" id="subject" name="subject" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">
+                                    <i class="fas fa-comment"></i>
+                                    Your Message
+                                </label>
+                                <textarea id="message" name="message" rows="5" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn cosmic-btn-primary">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Send Message</span>
+                                <div class="btn-transmission"></div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Quick Contact Buttons -->
+                <div class="quick-contact">
+                    <a href="mailto:sikandarali3572@gmail.com" class="quick-btn email-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span>Email Me</span>
+                    </a>
+                    <a href="tel:+919999999999" class="quick-btn phone-btn">
+                        <i class="fas fa-phone"></i>
+                        <span>Call Me</span>
+                    </a>
+                    <a href="https://wa.me/919999999999" target="_blank" class="quick-btn whatsapp-btn">
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="cosmic-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <div class="logo-hologram"></div>
+                    <span class="logo-text">Sikandar Ali</span>
+                </div>
+                
+                <p class="footer-tagline">Exploring the digital universe, one line of code at a time</p>
+                
+                <div class="footer-social">
+                    <a href="mailto:sikandarali3572@gmail.com" class="social-link" title="Email">
+                        <i class="fas fa-envelope"></i>
+                        <div class="link-orbit"></div>
+                    </a>
+                    <a href="https://github.com/SIKANDAR063" target="_blank" class="social-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                        <div class="link-orbit"></div>
+                    </a>
+                    <a href="https://linkedin.com/in/sikandar-ali-05a217272" target="_blank" class="social-link" title="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                        <div class="link-orbit"></div>
+                    </a>
+                    <a href="tel:+919999999999" class="social-link" title="Phone">
+                        <i class="fas fa-phone"></i>
+                        <div class="link-orbit"></div>
+                    </a>
+                </div>
+                
+                <div class="footer-copyright">
+                    <p>&copy; 2024 Sikandar Ali. All rights reserved.</p>
+                    <p class="footer-subtext">Crafted with <i class="fas fa-heart pulse"></i> in the digital cosmos</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script src="js/modules/galaxy3d.js"></script>
+    <script src="js/modules/starfield.js"></script>
+    <script src="js/modules/laptop3d.js"></script>
+    <script src="js/modules/glitter.js"></script>
+    <script src="js/modules/theme-switcher.js"></script>
+    <script src="js/modules/loading.js"></script>
+</body>
+</html>

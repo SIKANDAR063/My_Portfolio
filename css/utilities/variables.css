@@ -1,0 +1,154 @@
+/* =========================================================
+   DESIGN TOKENS / CSS VARIABLES
+   Author: Sikandar Ali
+   Purpose: Global design system (colors, spacing, motion)
+   ========================================================= */
+
+:root {
+    /* =========================
+       BRAND COLORS
+       ========================= */
+    --primary-color: #6c63ff;
+    --secondary-color: #ff6b6b;
+    --accent-color: #4dccbd;
+
+    /* =========================
+       NEUTRAL COLORS
+       ========================= */
+    --white: #ffffff;
+    --black: #000000;
+
+    --gray-100: #f8f9fa;
+    --gray-200: #e9ecef;
+    --gray-300: #dee2e6;
+    --gray-400: #ced4da;
+    --gray-500: #adb5bd;
+    --gray-600: #6c757d;
+    --gray-700: #495057;
+    --gray-800: #343a40;
+    --gray-900: #212529;
+
+    /* =========================
+       SEMANTIC COLORS
+       ========================= */
+    --success-color: #06d6a0;
+    --warning-color: #ffd166;
+    --error-color: #ff6b6b;
+    --info-color: #118ab2;
+
+    /* =========================
+       GRADIENTS
+       ========================= */
+    --gradient-primary: linear-gradient(
+        135deg,
+        var(--primary-color),
+        var(--secondary-color)
+    );
+
+    --gradient-accent: linear-gradient(
+        135deg,
+        var(--accent-color),
+        var(--primary-color)
+    );
+
+    --gradient-dark: linear-gradient(135deg, #0a0a14, #16213e);
+    --gradient-light: linear-gradient(135deg, #ffffff, #f8f9fa);
+
+    /* =========================
+       TYPOGRAPHY
+       ========================= */
+    --font-primary: 'Poppins', system-ui, -apple-system, sans-serif;
+    --font-secondary: 'Space Grotesk', system-ui, -apple-system, sans-serif;
+
+    /* =========================
+       SPACING SCALE
+       ========================= */
+    --spacing-xs: 0.25rem;   /* 4px */
+    --spacing-sm: 0.5rem;    /* 8px */
+    --spacing-md: 1rem;      /* 16px */
+    --spacing-lg: 1.5rem;    /* 24px */
+    --spacing-xl: 2rem;      /* 32px */
+    --spacing-2xl: 3rem;     /* 48px */
+    --spacing-3xl: 4rem;     /* 64px */
+
+    /* =========================
+       BORDER RADIUS
+       ========================= */
+    --radius-sm: 0.375rem;
+    --radius-md: 0.75rem;
+    --radius-lg: 1.25rem;
+    --radius-xl: 1.75rem;
+    --radius-full: 9999px;
+
+    /* =========================
+       SHADOWS
+       ========================= */
+    --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 10px 24px rgba(0, 0, 0, 0.15);
+    --shadow-xl: 0 16px 40px rgba(0, 0, 0, 0.2);
+
+    --shadow-glow: 0 0 25px rgba(108, 99, 255, 0.35);
+
+    /* =========================
+       TRANSITIONS & MOTION
+       ========================= */
+    --transition-fast: 0.15s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+    --transition-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* =========================
+       Z-INDEX SCALE
+       ========================= */
+    --z-negative: -1;
+    --z-base: 1;
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-fixed: 300;
+    --z-modal: 400;
+    --z-popover: 500;
+    --z-tooltip: 600;
+}
+
+/* =========================================================
+   LIGHT THEME (DEFAULT)
+   ========================================================= */
+[data-theme="light"] {
+    --background-color: #ffffff;
+    --surface-color: #f8f9fa;
+
+    --text-color: #212529;
+    --text-secondary: #6c757d;
+
+    --border-color: rgba(0, 0, 0, 0.1);
+    --card-bg: rgba(0, 0, 0, 0.02);
+}
+
+/* =========================================================
+   DARK THEME
+   ========================================================= */
+[data-theme="dark"] {
+    --background-color: #0a0a14;
+    --surface-color: #1a1a2e;
+
+    --text-color: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+
+    --border-color: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.05);
+}
+
+/* =========================================================
+   AUTO THEME (SYSTEM PREFERENCE)
+   ========================================================= */
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme]) {
+        --background-color: #0a0a14;
+        --surface-color: #1a1a2e;
+        --text-color: #ffffff;
+        --text-secondary: rgba(255, 255, 255, 0.7);
+        --border-color: rgba(255, 255, 255, 0.1);
+        --card-bg: rgba(255, 255, 255, 0.05);
+    }
+}

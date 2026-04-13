@@ -1,0 +1,241 @@
+/* =========================================================
+   RESPONSIVE UTILITIES SYSTEM
+   Author: Sikandar Ali
+   Purpose: Layout, spacing, display & device utilities
+   ========================================================= */
+
+/* =========================================================
+   BREAKPOINTS
+   ========================================================= */
+:root {
+    --bp-xs: 320px;
+    --bp-sm: 576px;
+    --bp-md: 768px;
+    --bp-lg: 992px;
+    --bp-xl: 1200px;
+    --bp-2xl: 1400px;
+}
+
+/* =========================================================
+   CONTAINER
+   ========================================================= */
+.container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--spacing-lg);
+}
+
+@media (min-width: 576px) { .container { max-width: 540px; } }
+@media (min-width: 768px) { .container { max-width: 720px; } }
+@media (min-width: 992px) { .container { max-width: 960px; } }
+@media (min-width: 1200px) { .container { max-width: 1140px; } }
+@media (min-width: 1400px) { .container { max-width: 1320px; } }
+
+/* =========================================================
+   SPACING UTILITIES
+   ========================================================= */
+
+/* Margin */
+.m-0 { margin: 0 !important; }
+.m-1 { margin: var(--spacing-xs) !important; }
+.m-2 { margin: var(--spacing-sm) !important; }
+
+.mt-0 { margin-top: 0 !important; }
+.mt-1 { margin-top: var(--spacing-xs) !important; }
+.mt-2 { margin-top: var(--spacing-sm) !important; }
+
+.mb-0 { margin-bottom: 0 !important; }
+.mb-1 { margin-bottom: var(--spacing-xs) !important; }
+.mb-2 { margin-bottom: var(--spacing-sm) !important; }
+
+/* Padding */
+.p-0 { padding: 0 !important; }
+.p-1 { padding: var(--spacing-xs) !important; }
+.p-2 { padding: var(--spacing-sm) !important; }
+
+.px-0 { padding-inline: 0 !important; }
+.py-0 { padding-block: 0 !important; }
+
+/* Mobile spacing overrides */
+@media (max-width: 768px) {
+    .mobile-m-0 { margin: 0 !important; }
+    .mobile-p-0 { padding: 0 !important; }
+}
+
+/* =========================================================
+   DISPLAY UTILITIES
+   ========================================================= */
+.d-none { display: none !important; }
+.d-block { display: block !important; }
+.d-flex { display: flex !important; }
+.d-grid { display: grid !important; }
+
+@media (max-width: 576px) {
+    .d-xs-none { display: none !important; }
+    .d-xs-block { display: block !important; }
+}
+
+@media (max-width: 768px) {
+    .d-md-none { display: none !important; }
+}
+
+/* =========================================================
+   FLEXBOX UTILITIES
+   ========================================================= */
+.flex-row { flex-direction: row !important; }
+.flex-column { flex-direction: column !important; }
+.flex-wrap { flex-wrap: wrap !important; }
+
+.justify-center { justify-content: center !important; }
+.justify-between { justify-content: space-between !important; }
+
+.align-center { align-items: center !important; }
+
+@media (max-width: 768px) {
+    .mobile-flex-column { flex-direction: column !important; }
+    .mobile-text-center { text-align: center !important; }
+}
+
+/* =========================================================
+   GRID UTILITIES
+   ========================================================= */
+.grid-1 { grid-template-columns: repeat(1, 1fr) !important; }
+.grid-2 { grid-template-columns: repeat(2, 1fr) !important; }
+.grid-3 { grid-template-columns: repeat(3, 1fr) !important; }
+
+.gap-1 { gap: var(--spacing-xs) !important; }
+.gap-2 { gap: var(--spacing-sm) !important; }
+.gap-3 { gap: var(--spacing-md) !important; }
+
+@media (max-width: 768px) {
+    .grid-sm-1 { grid-template-columns: 1fr !important; }
+}
+
+/* =========================================================
+   TYPOGRAPHY UTILITIES
+   ========================================================= */
+.fs-sm { font-size: 0.875rem !important; }
+.fs-base { font-size: 1rem !important; }
+.fs-lg { font-size: 1.125rem !important; }
+.fs-xl { font-size: 1.25rem !important; }
+
+.fw-medium { font-weight: 500 !important; }
+.fw-bold { font-weight: 700 !important; }
+
+.text-center { text-align: center !important; }
+
+@media (max-width: 768px) {
+    h1 { font-size: 2rem !important; }
+    h2 { font-size: 1.75rem !important; }
+}
+
+/* =========================================================
+   IMAGE UTILITIES
+   ========================================================= */
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.aspect-1-1 { aspect-ratio: 1 / 1; }
+.aspect-16-9 { aspect-ratio: 16 / 9; }
+
+/* =========================================================
+   POSITION UTILITIES
+   ========================================================= */
+.position-relative { position: relative !important; }
+.position-absolute { position: absolute !important; }
+.position-fixed { position: fixed !important; }
+
+.top-50 { top: 50% !important; }
+.start-50 { left: 50% !important; }
+
+.translate-center {
+    transform: translate(-50%, -50%) !important;
+}
+
+/* =========================================================
+   VISIBILITY
+   ========================================================= */
+.hide-mobile {
+    display: none !important;
+}
+
+@media (min-width: 768px) {
+    .hide-mobile { display: block !important; }
+}
+
+/* =========================================================
+   WIDTH & HEIGHT
+   ========================================================= */
+.w-100 { width: 100% !important; }
+.h-100 { height: 100% !important; }
+.vh-100 { height: 100vh !important; }
+
+/* =========================================================
+   TOUCH DEVICES
+   ========================================================= */
+@media (hover: none) and (pointer: coarse) {
+    .no-hover:hover {
+        transform: none !important;
+        box-shadow: none !important;
+    }
+
+    .touch-target {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* =========================================================
+   PRINT
+   ========================================================= */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 12pt !important;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation: none !important;
+        transition: none !important;
+    }
+}
+
+/* =========================================================
+   PERFORMANCE (MOBILE)
+   ========================================================= */
+@media (max-width: 768px) {
+    .blur-heavy {
+        backdrop-filter: blur(4px);
+    }
+
+    .animated-bg {
+        animation: none !important;
+        opacity: 0.05 !important;
+    }
+}
+
+/* =========================================================
+   JS STATE CLASSES
+   ========================================================= */
+.is-menu-open {
+    overflow: hidden;
+}
+
+.loading {
+    pointer-events: none;
+    opacity: 0.6;
+}

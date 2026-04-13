@@ -1,0 +1,83 @@
+{
+  "name": "portfolio-sikandar",
+  "version": "1.0.0",
+  "description": "Modern portfolio website for Sikandar Ali – Software Developer & ML Engineer",
+  "type": "module",
+  "main": "index.html",
+
+  "scripts": {
+    "dev": "live-server --port=3000 --host=localhost",
+    "start": "npm run dev",
+
+    "build:css": "postcss css/style.css -o dist/css/style.min.css --env production",
+    "build:js": "esbuild js/main.js --bundle --minify --target=es2018 --outfile=dist/js/app.min.js",
+    "build:html": "html-minifier --collapse-whitespace --remove-comments --use-short-doctype --minify-css true --minify-js true index.html -o dist/index.html",
+
+    "copy:assets": "copyfiles -u 1 assets/**/* dist/",
+    "optimize:images": "sharp -i assets/images/* -o dist/assets/images -q 80",
+
+    "build": "npm run build:css && npm run build:js && npm run build:html && npm run copy:assets",
+    "deploy": "npm run build",
+
+    "lint:css": "stylelint \"css/**/*.css\"",
+    "lint:js": "eslint \"js/**/*.js\"",
+    "format": "prettier --write \"**/*.{html,css,js,json}\"",
+
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+
+  "keywords": [
+    "portfolio",
+    "software-developer",
+    "web-development",
+    "machine-learning",
+    "c++",
+    "frontend"
+  ],
+
+  "author": "Sikandar Ali",
+  "license": "MIT",
+  "homepage": "https://sikandar-ali-portfolio.netlify.app",
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SIKANDAR063/portfolio-sikandar.git"
+  },
+
+  "bugs": {
+    "url": "https://github.com/SIKANDAR063/portfolio-sikandar/issues"
+  },
+
+  "dependencies": {
+    "@emailjs/browser": "^3.11.0",
+    "aos": "^2.3.4"
+  },
+
+  "devDependencies": {
+    "autoprefixer": "^10.4.19",
+    "copyfiles": "^2.4.1",
+    "cssnano": "^6.0.3",
+    "eslint": "^8.56.0",
+    "esbuild": "^0.20.2",
+    "html-minifier": "^4.0.0",
+    "live-server": "^1.2.2",
+    "postcss": "^8.4.38",
+    "postcss-cli": "^11.0.0",
+    "postcss-preset-env": "^9.5.0",
+    "prettier": "^3.2.5",
+    "sharp": "^0.33.2",
+    "stylelint": "^16.1.0",
+    "stylelint-config-standard": "^36.0.0"
+  },
+
+  "browserslist": [
+    ">0.5%",
+    "last 2 versions",
+    "not dead"
+  ],
+
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}

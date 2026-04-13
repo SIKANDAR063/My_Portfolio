@@ -1,0 +1,102 @@
+{
+  "META": {
+    "app": "portfolio-sikandar",
+    "version": "1.0.0",
+    "environment": "production",
+    "lastUpdated": "2025-01-31"
+  },
+
+  "SITE": {
+    "name": "Sikandar Ali Portfolio",
+    "tagline": "Developer & ML Enthusiast",
+    "description": "Personal portfolio of Sikandar Ali showcasing projects, skills, and experience in Web Development, C++, and Machine Learning.",
+    "url": "https://sikandarali.dev",
+    "author": {
+      "name": "Sikandar Ali",
+      "role": "Aspiring Software Developer & ML Engineer",
+      "location": "Kanpur, Uttar Pradesh, India"
+    },
+    "keywords": [
+      "Sikandar Ali",
+      "Portfolio",
+      "Web Developer",
+      "C++ Developer",
+      "Machine Learning",
+      "Software Engineer"
+    ]
+  },
+
+  "SOCIAL": {
+    "github": {
+      "label": "GitHub",
+      "url": "https://github.com/SIKANDAR063"
+    },
+    "linkedin": {
+      "label": "LinkedIn",
+      "url": "https://linkedin.com/in/sikandar-ali-05a217272"
+    },
+    "email": {
+      "label": "Email",
+      "address": "sikandarali3572@gmail.com"
+    },
+    "resume": {
+      "label": "Resume",
+      "url": "https://drive.google.com/file/d/11DEW--pIPSPcLoOT--VKTiF5KyzY0nRF/view"
+    }
+  },
+
+  "NAVIGATION": [
+    { "id": "home", "label": "Home" },
+    { "id": "about", "label": "About" },
+    { "id": "timeline", "label": "Timeline" },
+    { "id": "skills", "label": "Skills" },
+    { "id": "projects", "label": "Projects" },
+    { "id": "contact", "label": "Contact" }
+  ],
+
+  "PROJECTS": [
+    {
+      "id": "weather-app",
+      "name": "Weather Forecast App",
+      "description": "Real-time weather application with OpenWeather API, responsive UI, and error handling.",
+      "liveUrl": "https://weather-by-sikandar-4063.netlify.app",
+      "githubUrl": "https://github.com/SIKANDAR063/Weather-Project",
+      "image": "assets/images/project-weather.jpg",
+      "category": "Web Application",
+      "techStack": ["HTML", "CSS", "JavaScript", "API"],
+      "featured": true
+    },
+    {
+      "id": "snake-game",
+      "name": "Snake Game",
+      "description": "Interactive browser-based Snake Game with animations, keyboard controls, and scoring.",
+      "liveUrl": "https://quick-game-by-me.netlify.app",
+      "githubUrl": "https://github.com/SIKANDAR063/Snake-Game",
+      "image": "assets/images/project-snake.jpg",
+      "category": "Game Development",
+      "techStack": ["JavaScript", "Canvas API", "Game Development"],
+      "featured": true
+    }
+  ],
+
+  "FEATURE_FLAGS": {
+    "enableParticles": true,
+    "enableDarkMode": true,
+    "enableAnimations": true,
+    "enableProjectFilter": false
+  },
+
+  "SEO": {
+    "defaultImage": "assets/images/profile.jpg",
+    "twitterHandle": "@sikandarali",
+    "openGraph": {
+      "type": "website",
+      "locale": "en_IN"
+    }
+  },
+
+  "ANALYTICS": {
+    "enabled": false,
+    "provider": null
+  }
+}
